@@ -1,192 +1,224 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  CursorArrowRaysIcon,
-  XMarkIcon,
-  ArrowRightOnRectangleIcon,
-  ShoppingBagIcon,
-  MagnifyingGlassIcon,
-  GiftTopIcon,
-  Squares2X2Icon,
-} from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import {
+  HiOutlineArrowLeftEndOnRectangle,
+  HiOutlineMoon,
+  HiOutlineShoppingBag,
+} from "react-icons/hi2";
+import {
+  IoLanguageOutline,
+  IoLocationOutline,
+  IoSearchOutline,
+} from "react-icons/io5";
+import { MdOutlineFavoriteBorder } from "react-icons/md";
 
-const feminine = [
+const navbar = [
   {
-    name: "لباس",
-    description: "زیباترین  و با کیفیت ترین لباس های زنانه",
-    href: "#",
-    icon: CursorArrowRaysIcon,
+    name: "زنانه",
+    submenu: [
+      {
+        name: "لباس",
+        description: "زیباترین  و با کیفیت ترین لباس های زنانه",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کیف",
+        description: "زیباترین  و با کیفیت ترین کیف های زنانه",
+        href: "#",
+        image: "/navbar/WomanBag.webp",
+      },
+      {
+        name: "کفش",
+        description: "زیباترین  و با کیفیت ترین کفش های زنانه",
+        href: "#",
+        image: "/navbar/WomanShoe.webp",
+      },
+      {
+        name: "اکسسوری",
+        description: "زیباترین  و با کیفیت ترین اکسسوری های زنانه",
+        href: "#",
+        image: "/navbar/WomanAccessories.webp",
+      },
+    ],
   },
   {
-    name: "کیف",
-    description: "زیباترین  و با کیفیت ترین کیف های زنانه",
-    href: "#",
-    icon: CursorArrowRaysIcon,
+    name: "مردانه",
+    submenu: [
+      {
+        name: "لباس",
+        description: "زیباترین  و با کیفیت ترین لباس های مردانه",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کیف",
+        description: "زیباترین  و با کیفیت ترین کیف های مردانه",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کفش",
+        description: "زیباترین  و با کیفیت ترین کفش های مردانه",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "اکسسوری",
+        description: "زیباترین  و با کیفیت ترین اکسسوری های مردانه",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+    ],
   },
   {
-    name: "کفش",
-    description: "زیباترین  و با کیفیت ترین کفش های زنانه",
-    href: "#",
-    icon: CursorArrowRaysIcon,
+    name: "نوجوان",
+    submenu: [
+      {
+        name: "لباس",
+        description: "زیباترین  و با کیفیت ترین لباس های نوجوان",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کیف",
+        description: "زیباترین  و با کیفیت ترین کیف های نوجوان",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کفش",
+        description: "زیباترین  و با کیفیت ترین کفش های نوجوان",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "اکسسوری",
+        description: "زیباترین  و با کیفیت ترین اکسسوری های نوجوان",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+    ],
   },
   {
-    name: "اکسسوری",
-    description: "زیباترین  و با کیفیت ترین اکسسوری های زنانه",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-];
-const masculine = [
-  {
-    name: "لباس",
-    description: "زیباترین  و با کیفیت ترین لباس های مردانه",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "کیف",
-    description: "زیباترین  و با کیفیت ترین کیف های مردانه",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "کفش",
-    description: "زیباترین  و با کیفیت ترین کفش های مردانه",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "اکسسوری",
-    description: "زیباترین  و با کیفیت ترین اکسسوری های مردانه",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-];
-const teenager = [
-  {
-    name: "لباس",
-    description: "زیباترین  و با کیفیت ترین لباس های نوجوانان",
-    href: "#",
-    icon: CursorArrowRaysIcon,
+    name: "کودک",
+    submenu: [
+      {
+        name: "لباس",
+        description: "زیباترین  و با کیفیت ترین لباس های کودک",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کیف",
+        description: "زیباترین  و با کیفیت ترین کیف های کودک",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کفش",
+        description: "زیباترین  و با کیفیت ترین کفش های کودک",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "اکسسوری",
+        description: "زیباترین  و با کیفیت ترین اکسسوری های کودک",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+    ],
   },
   {
-    name: "کیف",
-    description: "زیباترین  و با کیفیت ترین کیف های نوجوانان",
-    href: "#",
-    icon: CursorArrowRaysIcon,
+    name: "اسپرت",
+    submenu: [
+      {
+        name: "زنامه",
+        description: "زیباترین  و با کیفیت ترین لباس های اسپرت",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کیف",
+        description: "زیباترین  و با کیفیت ترین کیف های اسپرت",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کفش",
+        description: "زیباترین  و با کیفیت ترین کفش های اسپرت",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "اکسسوری",
+        description: "زیباترین  و با کیفیت ترین اکسسوری های اسپرت",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+    ],
   },
   {
-    name: "کفش",
-    description: "زیباترین  و با کیفیت ترین کفش های نوجوانان",
-    href: "#",
-    icon: CursorArrowRaysIcon,
+    name: "برندها",
+    submenu: [
+      {
+        name: "لباس",
+        description: "با کیفیت تیرن برندهای لباس",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کیف",
+        description: "با کیفیت ترین برندهای  کیف",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کفش",
+        description: "با کیفیت ترین برندهای کفش",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "اکسسوری",
+        description: "با کیفیت ترین برندهای اکسسوری های",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+    ],
   },
   {
-    name: "اکسسوری",
-    description: "زیباترین  و با کیفیت ترین اکسسوری های نوجوانان",
-    href: "#",
-    icon: CursorArrowRaysIcon,
+    name: "جدیدترین ها",
+    submenu: [
+      {
+        name: "لباس",
+        description: "زیباترین  و با کیفیت ترین لباس ها",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کیف",
+        description: "زیباترین  و با کیفیت ترین کیف ها",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "کفش",
+        description: "زیباترین  و با کیفیت ترین کفش ها",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+      {
+        name: "اکسسوری",
+        description: "زیباترین  و با کیفیت ترین اکسسوری ها",
+        href: "#",
+        image: "/navbar/WomanDress.webp",
+      },
+    ],
   },
-];
-const childish = [
-  {
-    name: "لباس",
-    description: "زیباترین  و با کیفیت ترین لباس های کودکان",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "کیف",
-    description: "زیباترین  و با کیفیت ترین کیف های کودکان",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "کفش",
-    description: "زیباترین  و با کیفیت ترین کفش های کودکان",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "اسباب بازی",
-    description: "زیباترین  و با کیفیت ترین اسباب بازی های کودکان",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-];
-const sport = [
-  {
-    name: "لباس",
-    description: "زیباترین  و با کیفیت ترین لباس های ورزشی",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "کیف",
-    description: "زیباترین  و با کیفیت ترین کیف های ورزشی",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "کفش",
-    description: "زیباترین  و با کیفیت ترین کفش های ورزشی",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "تجهیزات",
-    description: "تجهیزات ورزشی",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-];
-const brands = [
-  {
-    name: "جین وست",
-    description: " برند استرالیایی",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "کوتون",
-    description: "برند ترکیه‌ای",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "شیفر",
-    description: "برند ایرانی",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "چرم مشهد",
-    description: "برند ایرانس ورزشی",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-];
-const mifa = [
-  {
-    name: "لباس",
-    description: "تولیدات می فا",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "اکسسوری",
-    description: "تولیدات می فا",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-];
-const callsToAction = [
-  { name: "همه محصولات", href: "#", icon: Squares2X2Icon },
-  { name: "کارت هدیه", href: "#", icon: GiftTopIcon },
 ];
 
 function classNames(...classes) {
@@ -195,600 +227,178 @@ function classNames(...classes) {
 
 function Headre() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMenuHovered, setIsMenuHovered] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <header className="bg-white">
-      <div>
-        <img
-          className="w-screen h-8 lg:h-16 object-cover"
-          src="./spring.gif"
-          alt=""
-        ></img>
+    <header
+      className={`fixed top-0 w-full z-50 ${
+        isMenuHovered || isScrolled
+          ? "bg-white border-b border-gray-300 text-black"
+          : "bg-transparent text-white"
+      }`}
+    >
+      {/* top header */}
+      <div className="flex justify-between px-4 pt-3 pb-0">
+        {/* top header right */}
+        <div>
+          <ul className="flex justify-between gap-4">
+            <li>
+              <NavLink to={""}>
+                <span>
+                  <HiOutlineShoppingBag className=" h-5 w-5" />
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={""}>
+                <span>
+                  <MdOutlineFavoriteBorder className=" h-5 w-5" />
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={""}>
+                <span>
+                  <IoSearchOutline className="h-5 w-5" />
+                </span>
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+        {/* top header left */}
+        <div>
+          <ul className="flex justify-between gap-4">
+            <li>
+              <NavLink to={""}>
+                <span>
+                  <IoLocationOutline className=" h-5 w-5" />
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={""}>
+                <span>
+                  <IoLanguageOutline className=" h-5 w-5" />
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={""}>
+                <span>
+                  <HiOutlineMoon className=" h-5 w-5" />
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={""}>
+                <span>
+                  <HiOutlineArrowLeftEndOnRectangle className="h-5 w-5" />
+                </span>
+              </NavLink>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-        <div className="hidden lg:flex lg:flex-1 lg:justify-start gap-5">
-          <Link
-            to="/login"
-            className="flex items-center text-sm font-semibold leading-6 text-gray-900"
+      {/* logo */}
+      {!isScrolled ? (
+        <div>
+          <h1 className="block text-center mb-1  leading-0">
+            <NavLink className="inline-block -mt-5" to={""}>
+              <img
+                className="h-20 w-28"
+                src={`${
+                  isMenuHovered
+                    ? "../public/FayraLogoB.png"
+                    : "../public/FayraLogoW.png"
+                }`}
+                alt="Logo"
+              />
+            </NavLink>
+          </h1>
+        </div>
+      ) : (
+        ""
+      )}
+
+      {/* navbar */}
+      <nav>
+        {/* descktop navbar */}
+        <div className="relative flex justify-center items-center">
+          {/* <div className="hidden fixed w-screen h-screen z-0 top-48 "></div> */}
+          <ul
+            className={`w-fit flex justify-center gap-14 ${
+              isScrolled ? "p-0 mt-0 -mt-6 " : "pt-6 pb-2"
+            }`}
+            onMouseEnter={() => setIsMenuHovered(true)}
+            onMouseLeave={() => setIsMenuHovered(false)}
           >
-            <span aria-hidden="true">
-              {" "}
-              <ArrowRightOnRectangleIcon className="h-5 w-5 text-black-500" />{" "}
-            </span>
-            <span>ورود</span>
-          </Link>
-          <a
-            href="#"
-            className="flex items-center text-sm font-semibold leading-6 text-gray-900"
-          >
-            <span aria-hidden="true">
-              {" "}
-              <ShoppingBagIcon className="h-5 w-5 text-black-500" />{" "}
-            </span>
-          </a>
+            {navbar.map((item, index) => (
+              <li key={index} className="h-fit group">
+                <NavLink className="block cursor-pointer" to={""}>
+                  {item.name}
+                </NavLink>
+                {/* sub menu */}
+                <div className="absolute left-0 right-0 top-full bg-white text-black opacity-0 invisible group-hover:opacity-100 group-hover:visible ">
+                  <div
+                    className={`relative flex w-full border-t border-t-gray-300 transition-all duration-800 ease-in-out ${
+                      isMenuHovered ? " translate-y-0" : " -translate-y-3"
+                    }`}
+                  >
+                    <div className="absolute inset-0 bg-black/50 z-10 pointer-events-none" />
+                    {/* Dress */}
+                    {item.submenu.map((subItem, subIndex) => (
+                      <div className="basis-1/4 p-0 w-full max-w-1/4">
+                        <NavLink
+                          key={subIndex}
+                          className="block relative bg-transparent decoration-0 cursor-pointer "
+                          to={subItem.href}
+                        >
+                          <img
+                            className="w-full h-96 object-cover"
+                            src={subItem.image}
+                            alt=""
+                          />
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-50">
+                            <span className="block text-white text-lg">
+                              {subItem.name}
+                            </span>
+                            <span className="block w-20 h-[2px] bg-white mt-2 mx-auto" />
+                          </div>
+                        </NavLink>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="block w-full p-4 border-y border-gray-300 border-solid text-center">
+                    <NavLink className="inline-block p-2 transition-all">
+                      <span className="p-1 text-gray-900 border-b border-black border-solid">
+                        مشاهده همه محصولات
+                      </span>
+                    </NavLink>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="flex items-center justify-between gap-2 bg-gray-100 py-1 px-2 rounded-lg">
-          <div className="flex pointer">
-            <MagnifyingGlassIcon className="h-5 w-5 text-gray-500" />
-          </div>
-          <input
-            type="text"
-            className="p-1 w-96 bg-transparent outline-0"
-            placeholder="جستجو در برندها"
-          />
-        </div>
-        <div className="flex lg:flex-1 lg:justify-end">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img className="h-14 w-auto" src="./logo.gif" alt="" />
-          </a>
-        </div>
-      </div>
-      <nav
-        className="mx-auto max-w-7xl p-6 lg:px-8 flex justify-center border-solid border-b border-gray-200"
-        aria-label="Global"
-      >
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-          </button>
-        </div>
-        <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 outline-none">
-              زنانه
-              <ChevronDownIcon
-                className="h-5 w-5 flex-none text-gray-400"
-                aria-hidden="true"
-              />
-            </Popover.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute -right-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                <div className="p-4">
-                  {feminine.map((item) => (
-                    <div
-                      key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                    >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                        <item.icon
-                          className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="flex-auto">
-                        <a
-                          href={item.href}
-                          className="block font-semibold text-gray-900"
-                        >
-                          {item.name}
-                          <span className="absolute inset-0" />
-                        </a>
-                        <p className="mt-1 text-gray-600">{item.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                  {callsToAction.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon
-                        className="h-5 w-5 flex-none text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
-          <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 outline-none">
-              مردانه
-              <ChevronDownIcon
-                className="h-5 w-5 flex-none text-gray-400"
-                aria-hidden="true"
-              />
-            </Popover.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute -right-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                <div className="p-4">
-                  {masculine.map((item) => (
-                    <div
-                      key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                    >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                        <item.icon
-                          className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="flex-auto">
-                        <a
-                          href={item.href}
-                          className="block font-semibold text-gray-900"
-                        >
-                          {item.name}
-                          <span className="absolute inset-0" />
-                        </a>
-                        <p className="mt-1 text-gray-600">{item.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                  {callsToAction.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon
-                        className="h-5 w-5 flex-none text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
-          <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 outline-none">
-              نوجوان
-              <ChevronDownIcon
-                className="h-5 w-5 flex-none text-gray-400"
-                aria-hidden="true"
-              />
-            </Popover.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute -right-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                <div className="p-4">
-                  {teenager.map((item) => (
-                    <div
-                      key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                    >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                        <item.icon
-                          className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="flex-auto">
-                        <a
-                          href={item.href}
-                          className="block font-semibold text-gray-900"
-                        >
-                          {item.name}
-                          <span className="absolute inset-0" />
-                        </a>
-                        <p className="mt-1 text-gray-600">{item.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                  {callsToAction.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon
-                        className="h-5 w-5 flex-none text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
-          <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 outline-none">
-              بچگانه
-              <ChevronDownIcon
-                className="h-5 w-5 flex-none text-gray-400"
-                aria-hidden="true"
-              />
-            </Popover.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute -right-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                <div className="p-4">
-                  {childish.map((item) => (
-                    <div
-                      key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                    >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                        <item.icon
-                          className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="flex-auto">
-                        <a
-                          href={item.href}
-                          className="block font-semibold text-gray-900"
-                        >
-                          {item.name}
-                          <span className="absolute inset-0" />
-                        </a>
-                        <p className="mt-1 text-gray-600">{item.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                  {callsToAction.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon
-                        className="h-5 w-5 flex-none text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
-          <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 outline-none">
-              اسپرت
-              <ChevronDownIcon
-                className="h-5 w-5 flex-none text-gray-400"
-                aria-hidden="true"
-              />
-            </Popover.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute -right-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                <div className="p-4">
-                  {sport.map((item) => (
-                    <div
-                      key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                    >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                        <item.icon
-                          className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="flex-auto">
-                        <a
-                          href={item.href}
-                          className="block font-semibold text-gray-900"
-                        >
-                          {item.name}
-                          <span className="absolute inset-0" />
-                        </a>
-                        <p className="mt-1 text-gray-600">{item.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                  {callsToAction.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon
-                        className="h-5 w-5 flex-none text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
-          <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 outline-none">
-              برندها
-              <ChevronDownIcon
-                className="h-5 w-5 flex-none text-gray-400"
-                aria-hidden="true"
-              />
-            </Popover.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute -right-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 ">
-                <div className="p-4">
-                  {brands.map((item) => (
-                    <div
-                      key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                    >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                        <item.icon
-                          className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="flex-auto">
-                        <a
-                          href={item.href}
-                          className="block font-semibold text-gray-900"
-                        >
-                          {item.name}
-                          <span className="absolute inset-0" />
-                        </a>
-                        <p className="mt-1 text-gray-600">{item.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                  {callsToAction.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon
-                        className="h-5 w-5 flex-none text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
-          <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 outline-none">
-              محصولات Mifa
-              <ChevronDownIcon
-                className="h-5 w-5 flex-none text-gray-400"
-                aria-hidden="true"
-              />
-            </Popover.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute -right-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                <div className="p-4">
-                  {mifa.map((item) => (
-                    <div
-                      key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                    >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                        <item.icon
-                          className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="flex-auto">
-                        <a
-                          href={item.href}
-                          className="block font-semibold text-gray-900"
-                        >
-                          {item.name}
-                          <span className="absolute inset-0" />
-                        </a>
-                        <p className="mt-1 text-gray-600">{item.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                  {callsToAction.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon
-                        className="h-5 w-5 flex-none text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
-        </Popover.Group>
+        {/* mobile navbar */}
+        <div></div>
       </nav>
-
-      <Dialog
-        as="div"
-        className="lg:hidden"
-        open={mobileMenuOpen}
-        onClose={setMobileMenuOpen}
-      >
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img className="h-8 w-auto" src="./logo.gif" alt="" />
-            </a>
-            <button
-              type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                <Disclosure as="div" className="-mx-3">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-gray-50">
-                        Product
-                        <ChevronDownIcon
-                          className={classNames(
-                            open ? "rotate-180" : "",
-                            "h-5 w-5 flex-none"
-                          )}
-                          aria-hidden="true"
-                        />
-                      </Disclosure.Button>
-                      <Disclosure.Panel className="mt-2 space-y-2">
-                        {[
-                          ...feminine,
-                          ...masculine,
-                          ...teenager,
-                          ...childish,
-                          ...sport,
-                          ...brands,
-                          ...mifa,
-                          ...callsToAction,
-                        ].map((item) => (
-                          <Disclosure.Button
-                            key={item.name}
-                            as="a"
-                            href={item.href}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                          >
-                            {item.name}
-                          </Disclosure.Button>
-                        ))}
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Features
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Company
-                </a>
-              </div>
-              <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
-              </div>
-            </div>
-          </div>
-        </Dialog.Panel>
-      </Dialog>
     </header>
   );
 }

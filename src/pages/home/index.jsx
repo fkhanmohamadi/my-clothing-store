@@ -8,7 +8,7 @@ function HomeScreen() {
   return (
     <div>
       <Headre/>
-      <ImageField className="w-screen object-cover my-2" src="./baner.jpg" alt="baner"/>
+      <ImageField className="w-screen bg-cover bg-center bg-no-repeat" src="/BGImage.webp" alt="baner"/>
       <SubCategory/>
       <ProductsCart/>
     </div>
