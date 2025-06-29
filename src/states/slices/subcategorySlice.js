@@ -23,6 +23,7 @@ const subcategorySlice = createSlice({
       .addCase(fetchSubcategory.fulfilled, (state, action) => {
         state.status = "success";
         state.data = action.payload;
+        
       });
   },
 });

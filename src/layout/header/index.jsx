@@ -56,7 +56,7 @@ function Header() {
       <div className="lg:hidden">
         <MobileTopHeader />
       </div>
-      <div className="fixed lg:hidden bottom-0 left-0 w-full z-50">
+      <div className="lg:hidden fixed bottom-0 left-0 w-full z-50">
         <MobileNavbar />
       </div>
     </header>

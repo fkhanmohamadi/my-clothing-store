@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 export default function SubCategory() {
   const subCategory = useSelector((store) => store.subcategory);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -12,6 +12,12 @@
   font-style: normal;
 }
 
+@layer utilities{
+  .bg-home{
+    background-image: url('/public/BGImage.webp');
+  }
+}
+
 body {
   font-family: Vazirmatn, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
