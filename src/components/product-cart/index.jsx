@@ -11,22 +11,21 @@ function ProductCart({ product}) {
 
 
   return (
-    <div key={product.id} id={product.id} className="group relative" onClick={ShowProductDetail}>
-      <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+    <div key={product.id} id={product.id} className="group relative p-1 " onClick={ShowProductDetail}>
+      <div className=" group-hover:opacity-75 rounded-lg shadow-lg ">
         <img
-          src={`http://localhost:3002/files/${product.image[0]}`}
+          src={product.image}
           alt="product image"
-          className="h-full w-full object-cover object-center lg:h-full lg:w-full"
           id={product.id}
         />
       </div>
-      <div className="mt-4 flex justify-between">
+      <div className="mt-4 flex flex-col md:flex-row gap-1 md:gap-0 justify-between">
         <div>
-          <h3 className="text-sm text-gray-700" id={product.id}>
+          <h3 className="text-xs md:text-sm text-gray-700" id={product.id}>
               {product.name}
           </h3>
         </div>
-        <p className="text-sm font-medium text-gray-900" id={product.id}>{product.price}</p>
+        <p className="text-xs md:text-sm text-gray-900" id={product.id}>{Number(product.price).toLocaleString('fa-IR')} تومان</p>
       </div>
     </div>
   );

@@ -5,23 +5,36 @@
 }
 
 @font-face {
-  font-family: 'Vazirmatn';
-  src: url('/fonts/vazirmatn/Vazirmatn-Regular.woff2') format('woff2'),
-       url('/fonts/vazirmatn/Vazirmatn-Bold.woff2') format('woff2');
+  font-family: "Vazirmatn";
+  src: url("/fonts/vazirmatn/Vazirmatn-Regular.woff2") format("woff2"),
+    url("/fonts/vazirmatn/Vazirmatn-Bold.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
-@layer utilities{
-  .bg-home{
-    background-image: url('/public/BGImage.webp');
+@layer utilities {
+  .bg-home {
+    /* background-image: url('/public/images/BGImage.webp'); */
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)),
+      url("/public/images/BGImage.webp");
+    background-size: 100%;
+  }
+  .bg-CategoryBanner1 {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)),
+      url("/public/images/CategoryBanner/CategoryBanner1.JPG");
+    background-size: 100%;
+  }
+  .bg-CategoryBanner2 {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)),
+      url("/public/images/CategoryBanner/CategoryBanner2.JPG");
+    background-size: 100%;
   }
 }
 
 body {
-  font-family: Vazirmatn, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: Vazirmatn, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -9,7 +9,7 @@ function MobileTopHeader({ navbar }) {
     <div className=" bg-white text-black">
       {/* TopHeader */}
       <div className="flex items-end justify-between h-22  pt-0.5 px-5 pb-1">
-        <div className="pb-2 ml-8">
+        <div className="pb-2">
           <NavLink to={""}>
             <span>
               <IoSearchOutline className=" h-5 w-5" />
