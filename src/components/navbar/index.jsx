@@ -31,7 +31,7 @@ function Navbar({ isMenuHovered, setIsMenuHovered, isScrolled }) {
       {/* descktop navbar */}
       <div className="relative hidden lg:flex justify-center items-center">
         <ul
-          className={`w-fit flex justify-center gap-14 ${
+          className={`w-fit flex justify-center gap-x-20 ${
             isScrolled ? "p-0 pb-2 -mt-6 " : "pt-6 pb-2"
           }`}
           onMouseEnter={() => setIsMenuHovered(true)}

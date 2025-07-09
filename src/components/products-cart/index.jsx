@@ -6,12 +6,13 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchProducts } from "../../states/slices/productsSlice";
 
-export default function ProductsCart() {
+export default function ProductsCart({page , limit}) {
+
   const products = useSelector((store) => store.products);
 
   const [paginationParams, setPaginationParams] = useSearchParams({
-    _page: 1,
-    _limit: 8,
+    _page: page,
+    _limit: limit,
   });
 
   const dispatch = useDispatch();

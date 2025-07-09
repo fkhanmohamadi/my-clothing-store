@@ -43,7 +43,7 @@ export default function SubCategory() {
               slidesPerView={2}
               loop={true}
               autoplay={{ delay: 6000 }}
-              pagination={{ clickable: true }}
+              //pagination={{ clickable: true }}
               navigation={{
                 nextEl: ".custom-next",
                 prevEl: ".custom-prev",

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="bg-linear-to-l from-gray-950 to-gray-800 mt-12 text-white text-sm/8">
-      <div className="container mx-auto py-10 grid grid-cols-1 sm:grid-cols-3">
+    <footer className="bg-linear-to-l from-gray-950 to-gray-800 mt-10 text-white text-sm/8">
+      <div className="container mx-auto py-6 grid grid-cols-1 sm:grid-cols-3">
         <div className="flex flex-col gap-4 pt-12">
           <h2 className="text-xl">خدمات مشتریان</h2>
           <div className="flex flex-col gap-2 text-sm/8 text-gray-300">
