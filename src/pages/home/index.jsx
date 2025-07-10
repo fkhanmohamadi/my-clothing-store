@@ -16,7 +16,7 @@ function HomeScreen() {
         <Landing />
         <SubCategory />
         <CategoryBanner/>
-        <ProductsCart page={1} limit={100}/>
+        <ProductsCart page={1} limit={150}/>
         <Services/>
       </main>
       <Footer />
