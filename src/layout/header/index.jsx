@@ -11,18 +11,26 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Header() {
+function Header({ lineMenu }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  useEffect(() => {
+    if (lineMenu) {
+      setIsScrolled(true);
+    }
+  }, [lineMenu]);
+
+
   const handleScroll = () => {
     if (window.scrollY > 50) {
       setIsScrolled(true);
-    } else {
+    } else if(window.scrollY < 10 && !lineMenu ) {
       setIsScrolled(false);
     }
   };
+
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);

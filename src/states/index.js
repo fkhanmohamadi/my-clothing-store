@@ -15,7 +15,6 @@ export const store = configureStore({
     products: productsSlice,
     category: categorySlice,
     subcategory: subcategorySlice,
-    brands: brandsSlice,
     colors: colorsSlise,
     sizes: sizesSlise,
     categorySubcategoryRelation: categorySubcategoryRelSlice,

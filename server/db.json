@@ -6,13 +6,17 @@
       "image": "/images/Products/Woman/Dress/IMG_6971.JPG",
       "thumbnail": "/images/Products/Woman/Dress/IMG_6971.JPG",
       "price": "850000",
-      "color": 1,
-      "size": 6,
-      "quantity": "10",
       "createdAt": 1643373068134,
       "category": 1,
       "subcategory": 5,
-      "description": ""
+      "description": "",
+      "variants": [
+        { "id": 101, "colorId": 1, "sizeId": 2, "quantity": 5 },
+        { "id": 102, "colorId": 1, "sizeId": 3, "quantity": 24 },
+        { "id": 103, "colorId": 2, "sizeId": 4, "quantity": 5 },
+        { "id": 104, "colorId": 2, "sizeId": 5, "quantity": 12 },
+        { "id": 104, "colorId": 4, "sizeId": 6, "quantity": 10 }
+      ]
     },
     {
       "id": 2,
@@ -135,7 +139,6 @@
 
     {
       "id": 10,
-      "code": "400",
       "name": "شومیز زنانه نفس",
       "image": "/images/Products/Woman/Dress/IMG_6980.WEBP",
       "thumbnail": "/images/Products/Woman/Dress/IMG_6980.WEBP",
@@ -2082,19 +2085,19 @@
       "id": 2,
       "name": "کیف",
       "icon": "/images/Products/Category/Bag.WEBP",
-      "href": "/products/bag"
+      "href": "/products/bags"
     },
     {
       "id": 3,
       "name": "کفش",
       "icon": "/images/Products/Category/Shoe.WEBP",
-      "href": "/products/shoe"
+      "href": "/products/shoes"
     },
     {
       "id": 4,
       "name": "اکسسوری",
       "icon": "/images/Products/Category/Accessory.WEBP",
-      "href": "/products/accessory"
+      "href": "/products/accessories"
     },
     {
       "id": 5,
@@ -2133,105 +2136,105 @@
       "id": "2",
       "categoryId": "1",
       "subcategoryId": "2",
-      "href": "/products/women/bag",
+      "href": "/products/women/bags",
       "image": "/images/navbar/WomanBag.webp"
     },
     {
       "id": "3",
       "categoryId": "1",
       "subcategoryId": "3",
-      "href": "/products/women/shoe",
+      "href": "/products/women/shoes",
       "image": "/images/navbar/WomanShoe.webp"
     },
     {
       "id": "4",
       "categoryId": "1",
       "subcategoryId": "4",
-      "href": "/products/women/accessory",
+      "href": "/products/women/accessories",
       "image": "/images/navbar/WomanAccessories.webp"
     },
     {
       "id": "5",
       "categoryId": "2",
       "subcategoryId": "1",
-      "href": "/products/man/dress",
+      "href": "/products/man/clothing",
       "image": "/images/navbar/ManDress.webp"
     },
     {
       "id": "6",
       "categoryId": "2",
       "subcategoryId": "2",
-      "href": "/products/man/bag",
+      "href": "/products/man/bags",
       "image": "/images/navbar/ManBag.webp"
     },
     {
       "id": "7",
       "categoryId": "2",
       "subcategoryId": "3",
-      "href": "/products/man/shoe",
+      "href": "/products/man/shoes",
       "image": "/images/navbar/ManShoe.webp"
     },
     {
       "id": "8",
       "categoryId": "2",
       "subcategoryId": "4",
-      "href": "/products/man/accessory",
+      "href": "/products/man/accessories",
       "image": "/images/navbar/ManAccessories.webp"
     },
     {
       "id": "9",
       "categoryId": "3",
       "subcategoryId": "1",
-      "href": "/products/teenager/dress",
+      "href": "/products/teenager/clothing",
       "image": "/images/navbar/TeenagerDress.webp"
     },
     {
       "id": "10",
       "categoryId": "3",
       "subcategoryId": "2",
-      "href": "/products/teenager/bag",
+      "href": "/products/teenager/bags",
       "image": "/images/navbar/TeenagerBag.webp"
     },
     {
       "id": "11",
       "categoryId": "3",
       "subcategoryId": "3",
-      "href": "/products/teenager/shoe",
+      "href": "/products/teenager/shoes",
       "image": "/images/navbar/TeenagerShoe.webp"
     },
     {
       "id": "12",
       "categoryId": "3",
       "subcategoryId": "4",
-      "href": "/products/teenager/accessory",
+      "href": "/products/teenager/accessories",
       "image": "/images/navbar/TeenagerAccessories.webp"
     },
     {
       "id": "13",
       "categoryId": "4",
       "subcategoryId": "1",
-      "href": "/products/kid/dress",
+      "href": "/products/kid/clothing",
       "image": "/images/navbar/KidDress.PNG"
     },
     {
       "id": "14",
       "categoryId": "4",
       "subcategoryId": "2",
-      "href": "/products/kid/bag",
+      "href": "/products/kid/bags",
       "image": "/images/navbar/KidBag.webp"
     },
     {
       "id": "15",
       "categoryId": "4",
       "subcategoryId": "3",
-      "href": "/products/kid/shoe",
+      "href": "/products/kid/shoes",
       "image": "/images/navbar/KidShoe.webp"
     },
     {
       "id": "16",
       "categoryId": "4",
       "subcategoryId": "4",
-      "href": "/products/kid/accessory",
+      "href": "/products/kid/accessories",
       "image": "/images/navbar/KidAccessories.webp"
     },
     {
@@ -2245,96 +2248,87 @@
       "id": "18",
       "categoryId": "7",
       "subcategoryId": "6",
-      "href": "products/man/new",
+      "href": "/products/man/new",
       "image": "/images/navbar/ManDress.webp"
     },
     {
       "id": "19",
       "categoryId": "7",
       "subcategoryId": "7",
-      "href": "products/teenager/new",
+      "href": "/products/teenager/new",
       "image": "/images/navbar/TeenagerDress.webp"
     },
     {
       "id": "20",
       "categoryId": "7",
       "subcategoryId": "8",
-      "href": "products/kid/new",
+      "href": "/products/kid/new",
       "image": "/images/navbar/KidDress.PNG"
     }
   ],
   "colors": [
     {
-      "id": 0,
-      "name": "---",
-      "fname": "---"
-    },
-    {
       "id": 1,
-      "name": "White",
+      "name": "white",
       "fname": "سفید"
     },
     {
       "id": 2,
-      "name": "Red",
+      "name": "red",
       "fname": "قرمز"
     },
     {
       "id": 3,
-      "name": "Blue",
+      "name": "blue",
       "fname": "آبی"
     },
     {
       "id": 4,
-      "name": "Green",
+      "name": "green",
       "fname": "سبز"
     },
     {
       "id": 5,
-      "name": "Yellow",
+      "name": "yellow",
       "fname": "زرد"
     },
     {
       "id": 6,
-      "name": "Cream",
+      "name": "cream",
       "fname": "کرم"
     },
     {
       "id": 7,
-      "name": "Pink",
+      "name": "pink",
       "fname": "صورتی"
     },
     {
       "id": 8,
-      "name": "Orange",
+      "name": "orange",
       "fname": "نارنجی"
     },
     {
       "id": 9,
-      "name": "Gray",
+      "name": "gray",
       "fname": "طوسی"
     },
     {
       "id": 10,
-      "name": "Purple",
+      "name": "purple",
       "fname": "بنفش"
     },
     {
       "id": 11,
-      "name": "Brown",
+      "name": "brown",
       "fname": "قهوه ای"
     },
     {
       "id": 12,
-      "name": "Black",
+      "name": "black",
       "fname": "سیاه"
     }
   ],
   "sizes": [
-    {
-      "id": 0,
-      "name": "---"
-    },
     {
       "id": 1,
       "name": "XXS"

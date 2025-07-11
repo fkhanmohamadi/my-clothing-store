@@ -11,19 +11,21 @@ import ProductManagment from "./pages/product-management";
 import Products from "./pages/products";
 import QuantityManagment from "./pages/quantity-management";
 
-const routes=[
-    {path:"/" ,element:<HomeScreen />},
-    {path:"/login" ,element:<Login />},
-    {path:"/homemanagment" ,element:<HomeManagment />},
-    {path:"/ordersmanagment" ,element:<OrdersManagment />},
-    {path:"/productmanagment" ,element:<ProductManagment />},
-    {path:"/quantitymanagement" ,element:<QuantityManagment />},
-    {path:"/payment" ,element:<Payment />},
-    {path:"/product" ,element:<Product />},
-    {path:"/products" ,element:<Products />},
-    {path:"/checkout" ,element:<Checkout />},
-    {path:"/paymentresult" ,element:<PaymentResult />},
-    {path:"/paymentresultsuccess" ,element:<PaymentResultSuccess />},
-]
+const routes = [
+  { path: "/", element: <HomeScreen /> },
+  { path: "/login", element: <Login /> },
+  { path: "/homemanagment", element: <HomeManagment /> },
+  { path: "/ordersmanagment", element: <OrdersManagment /> },
+  { path: "/productmanagment", element: <ProductManagment /> },
+  { path: "/quantitymanagement", element: <QuantityManagment /> },
+  { path: "/payment", element: <Payment /> },
+  { path: "/product/:id", element: <Product /> },
+  { path: "/products", element: <Products /> },
+  { path: "/products/:categoryName", element: <Products /> },
+  { path: "/products/:categoryName/:subcategoryName", element: <Products /> },
+  { path: "/checkout", element: <Checkout /> },
+  { path: "/paymentresult", element: <PaymentResult /> },
+  { path: "/paymentresultsuccess", element: <PaymentResultSuccess /> },
+];
 
 export default routes;

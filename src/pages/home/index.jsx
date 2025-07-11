@@ -3,7 +3,7 @@ import ImageField from "../../components/img";
 import Header from "../../layout/header";
 import Footer from "../../layout/footer";
 import SubCategory from "../../components/subcategory";
-import ProductsCart from "../../components/products-cart";
+import BestSellingProducts from "../../components/Best-selling-products";
 import Landing from "../../components/landing";
 import CategoryBanner from "../../components/category-banner";
 import Services from "../../components/services";
@@ -15,9 +15,9 @@ function HomeScreen() {
       <main>
         <Landing />
         <SubCategory />
-        <CategoryBanner/>
-        <ProductsCart page={1} limit={150}/>
-        <Services/>
+        <CategoryBanner />
+        <BestSellingProducts />
+        <Services />
       </main>
       <Footer />
     </div>

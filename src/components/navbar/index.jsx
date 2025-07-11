@@ -74,7 +74,9 @@ function Navbar({ isMenuHovered, setIsMenuHovered, isScrolled }) {
                                 to={subMenuItem?.href || "#"}
                               >
                                 <img
-                                  className="w-full h-96 object-cover"
+                                  className={`w-full  ${
+                                    isScrolled ? "h-72" : "h-96"
+                                  }`}
                                   src={subMenuItem?.image || ""}
                                   alt=""
                                 />
@@ -89,13 +91,12 @@ function Navbar({ isMenuHovered, setIsMenuHovered, isScrolled }) {
                           );
                         })}
                       </div>
-
-                      <div className="block w-full p-4 border-y border-gray-300 border-solid text-center">
+                      <div className="block p-3 w-full border-y border-gray-300 border-solid text-center">
                         <NavLink
-                          className="inline-block p-2 transition-all"
-                          to={"/"}
+                          className="inline-block transition-all"
+                          to={category.href}
                         >
-                          <span className="p-1 text-gray-900 border-b border-black border-solid">
+                          <span className=" text-gray-900 border-b border-black border-solid">
                             مشاهده همه محصولات
                           </span>
                         </NavLink>
