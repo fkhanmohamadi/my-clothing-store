@@ -50,6 +50,7 @@ function Products() {
     dispatch(fetchSizes());
   }, []);
 
+
   // Filter and sort products
   let productsFiltered = allProductsData.filter((product) => {
     if (categoryId && product.category !== categoryId) return false;

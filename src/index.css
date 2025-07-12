@@ -16,17 +16,17 @@
   .bg-home {
     /* background-image: url('/public/images/BGImage.webp'); */
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)),
-      url("/public/images/BGImage.webp");
+      url("/images/BGImage.webp");
     background-size: 100%;
   }
   .bg-CategoryBanner1 {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)),
-      url("/public/images/CategoryBanner/CategoryBanner1.JPG");
+      url("/images/CategoryBanner/CategoryBanner1.JPG");
     background-size: 100%;
   }
   .bg-CategoryBanner2 {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)),
-      url("/public/images/CategoryBanner/CategoryBanner2.JPG");
+      url("/images/CategoryBanner/CategoryBanner2.JPG");
     background-size: 100%;
   }
 }

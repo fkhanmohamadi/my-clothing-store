@@ -16,6 +16,10 @@
         { "id": 103, "colorId": 2, "sizeId": 4, "quantity": 5 },
         { "id": 104, "colorId": 2, "sizeId": 5, "quantity": 12 },
         { "id": 104, "colorId": 4, "sizeId": 6, "quantity": 10 }
+      ],
+      "breadcrumbs": [
+        { "id": 1, "name": "Woman", "href": "/products/women" },
+        { "id": 2, "name": "Clothing", "href": "/products/women/clothing" }
       ]
     },
     {
