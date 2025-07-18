@@ -1,4 +1,5 @@
 import React from "react";
+
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import TextField from "../../components/text-field";
 import ImageField from "../../components/img";
@@ -20,7 +21,7 @@ const schema = yup.object({
   password: yup.string().required(" پسورد الزامیست ."),
 });
 
-function Login() {
+function RegisterPage() {
   const showToastMessage = () => {
     toast.error("اطلاعات ورودی معتبر نمی باشد", {
       position: toast.POSITION.TOP_RIGHT,
@@ -40,6 +41,7 @@ function Login() {
   });
 
   const submitForm = async (data) => {
+    console.log(data);
     const loginData = {
       username: data.username,
       password: data.password,
@@ -49,10 +51,8 @@ function Login() {
       const result = await loginService(loginData);
       localStorage.setItem("token", result.accessToken);
       localStorage.setItem("refresh_token", result.refreshToken);
-      toast.success("ورود با موفقیت انجام شد");
-      // setTimeout(() => {
-      //   navigate("/");
-      // }, 1000);
+
+      navigate("/ordersmanagment");
     } catch (error) {
       console.log(error);
       showToastMessage();
@@ -64,16 +64,13 @@ function Login() {
       <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-100">
         <div className="w-full max-w-md space-y-10 bg-white p-6 rounded-lg shadow-md">
           <div className="flex flex-col items-center">
-            <Link
-              to={"/"}
-              className="w-24 h-24 flex items-center border border-gray-200 p-2 rounded-full shadow-lg"
-            >
+            <div className="w-24 h-24 flex items-center border border-gray-200 p-2 rounded-full shadow-lg">
               <ImageField
                 className="mx-auto h-12 w-auto"
                 src="/FayraLogoB.png"
                 alt="logo"
               />
-            </Link>
+            </div>
             <div className="flex gap-3 justify-center items-center mt-6">
               <Link
                 to={"/login"}
@@ -148,4 +145,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default RegisterPage;

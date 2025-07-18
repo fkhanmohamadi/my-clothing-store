@@ -7,6 +7,7 @@ import { fetchColors } from "../../states/slices/colorsSlise";
 import { fetchSizes } from "../../states/slices/sizesSlise";
 import Header from "../../layout/header";
 import Footer from "../../layout/footer";
+import Services from "../../components/services";
 import ProductCart from "../../components/product-cart";
 import LoadMore from "../../components/load-more";
 import OptionField from "../../components/dropdown";
@@ -14,8 +15,10 @@ import OptionField from "../../components/dropdown";
 function Products() {
   ////// params
   const { categoryName, subcategoryName } = useParams();
-  const categoryId = categoryMap[categoryName];
-  const subcategoryId = subcategoryMap[subcategoryName];
+  const categoryId = categoryName ? categoryMap[categoryName] : null;
+  const subcategoryId = subcategoryName
+    ? subcategoryMap[subcategoryName]
+    : null;
 
   const dispatch = useDispatch();
 
@@ -50,8 +53,8 @@ function Products() {
     dispatch(fetchSizes());
   }, []);
 
-
   // Filter and sort products
+
   let productsFiltered = allProductsData.filter((product) => {
     if (categoryId && product.category !== categoryId) return false;
     if (subcategoryId && product.subcategory !== subcategoryId) return false;
@@ -74,6 +77,8 @@ function Products() {
     setVisibleCount((prev) => prev + 4);
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   };
+
+  if (!allProductsData) return <div className="p-4">در حال بارگذاری...</div>;
 
   return (
     <div>
@@ -131,6 +136,7 @@ function Products() {
           )}
         </div>
       </main>
+      <Services />
       <Footer />
     </div>
   );

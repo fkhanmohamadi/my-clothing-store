@@ -75,7 +75,7 @@ function Navbar({ isMenuHovered, setIsMenuHovered, isScrolled }) {
                               >
                                 <img
                                   className={`w-full  ${
-                                    isScrolled ? "h-72" : "h-96"
+                                    isScrolled ? "h-80" : "h-96"
                                   }`}
                                   src={subMenuItem?.image || ""}
                                   alt=""

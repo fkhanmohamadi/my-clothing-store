@@ -6,8 +6,8 @@ export const categoryMap = {
 };
 
 export const subcategoryMap = {
-  clothing: 1,
-  bags: 2,
-  shoes: 3,
-  accessories: 4,
+  clothing: 5,
+  bags: 6,
+  shoes: 7,
+  accessories: 8,
 };
