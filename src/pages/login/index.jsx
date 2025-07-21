@@ -5,29 +5,51 @@ import ImageField from "../../components/img";
 import CheckboxField from "../../components/checkBox-field";
 import LinkFiled from "../../components/link";
 import Button from "../../components/button";
-import { useState } from "react";
-import { loginService } from "../../api/services/auth";
 import Cookies from "js-cookie";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-
-const schema = yup.object({
-  username: yup.string().required("نام کاربری الزامیست ."),
-  password: yup.string().required(" پسورد الزامیست ."),
-});
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../states/slices/authSlice";
 
 function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
+
+  const dispatch = useDispatch();
+
   const showToastMessage = () => {
     toast.error("اطلاعات ورودی معتبر نمی باشد", {
       position: toast.POSITION.TOP_RIGHT,
     });
   };
 
-  const navigate = useNavigate();
+  const submitForm = async (data) => {
+    const loginData = {
+      username: data.username,
+      password: data.password,
+    };
+
+    const resultAction = await dispatch(loginUser(loginData));
+
+    if (loginUser.fulfilled.match(resultAction)) {
+      toast.success("ورود با موفقیت انجام شد");
+      setTimeout(() => {
+        navigate(from);
+      }, 1000);
+    } else {
+      showToastMessage();
+    }
+  };
+
+  const schema = yup.object({
+    username: yup.string().required("نام کاربری الزامیست ."),
+    password: yup.string().required(" پسورد الزامیست ."),
+  });
 
   const {
     reset,
@@ -38,26 +60,6 @@ function Login() {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
-  const submitForm = async (data) => {
-    const loginData = {
-      username: data.username,
-      password: data.password,
-    };
-
-    try {
-      const result = await loginService(loginData);
-      localStorage.setItem("token", result.accessToken);
-      localStorage.setItem("refresh_token", result.refreshToken);
-      toast.success("ورود با موفقیت انجام شد");
-      // setTimeout(() => {
-      //   navigate("/");
-      // }, 1000);
-    } catch (error) {
-      console.log(error);
-      showToastMessage();
-    }
-  };
 
   return (
     <>
@@ -97,7 +99,6 @@ function Login() {
             <TextField
               id="username"
               lable="نام کاربری"
-              name="username"
               type="text"
               className="relative block w-full rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder=""
@@ -107,7 +108,6 @@ function Login() {
             <TextField
               id="password"
               lable="رمز عبور"
-              name="password"
               type="password"
               className="relative block w-full rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder=""

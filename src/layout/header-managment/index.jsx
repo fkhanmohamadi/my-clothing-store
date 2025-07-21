@@ -14,12 +14,12 @@ import { useNavigate } from "react-router-dom";
 
 function HeaderManagment() {
 
- const navigate = useNavigate() 
+//  const navigate = useNavigate() 
 
 const handlelogout =()=>{
-  localStorage.removeItem('token');
-  localStorage.removeItem('refresh_token');
-  navigate('/login')
+  // localStorage.removeItem('token');
+  // localStorage.removeItem('refresh_token');
+  // navigate('/login')
 }
 
   return (

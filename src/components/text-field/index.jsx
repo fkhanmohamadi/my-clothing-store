@@ -3,7 +3,6 @@ import React from "react";
 function TextField({
   id,
   lable,
-  name,
   type,
   className,
   placeholder,
@@ -11,11 +10,10 @@ function TextField({
   validation
 }) {
   return (
-    <div className="flex flex-col space-y-3">
+    <div className="flex flex-col space-y-1">
       <label htmlFor={id}>{lable}</label>
       <input
         id={id}
-        name={name}
         type={type}
         className={className}
         placeholder={placeholder}

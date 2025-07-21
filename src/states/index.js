@@ -9,6 +9,8 @@ import sizesSlise from "./slices/sizesSlise";
 import categorySubcategoryRelSlice from "./slices/categorySubcategoryRelSlice";
 import companyServicesSlice from "./slices/companyServicesSlice";
 import cartSlice from "./slices/cartSlice";
+import authSlice from "./slices/authSlice";
+import userSlice from "./slices/userSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +22,8 @@ export const store = configureStore({
     sizes: sizesSlise,
     categorySubcategoryRelation: categorySubcategoryRelSlice,
     companyServices: companyServicesSlice,
-    cart:cartSlice,
+    cart: cartSlice,
+    auth: authSlice,
+    user: userSlice,
   },
 });

@@ -20,6 +20,8 @@ export default function ProductPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
+  const { isLoggedIn, userInfo } = useSelector((state) => state.user);
+
   ////// Products
   const allProducts = useSelector((store) => store.products);
   const allProductsData = allProducts?.data?.productsData || [];
@@ -77,9 +79,13 @@ export default function ProductPage() {
   }, [availableColors, availableSizes, reset]);
 
   const onSubmit = (data) => {
+    if (!isLoggedIn || !userInfo) {
+      toast.error("لطفاً ابتدا وارد حساب کاربری شوید");
+      return;
+    }
     dispatch(
       addToCart({
-        userid: 1,
+        userid: userInfo.id,
         product: {
           productid: product.id,
           productname: product.name,
@@ -90,9 +96,7 @@ export default function ProductPage() {
         },
       })
     );
-    console.log("فرم ارسال شد:", data);
-
-    toast.success("✅ محصول به سبد خرید اضافه شد");
+    toast.success("محصول به سبد خرید اضافه شد");
   };
 
   if (!product) return <div className="p-4">در حال بارگذاری...</div>;

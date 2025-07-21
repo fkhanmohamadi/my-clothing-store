@@ -163,7 +163,11 @@ server.post("/auth/login", async function (req, res, next) {
     }
   );
   refreshTokens.push(refreshToken);
-  res.json({ accessToken, refreshToken });
+  res.json({
+    accessToken,
+    refreshToken,
+    user: { ...req.user },
+  });
 });
 
 server.post("/auth/refresh-token", async function (req, res, next) {
