@@ -79,7 +79,7 @@ export default function SubCategory() {
                 <Link to={subCategory.href}>
                   <div
                     key={subCategory.name}
-                    className="flex flex-col justify-center items-center group relative"
+                    className="flex flex-col justify-center items-center w-full group relative"
                   >
                     <div className=" overflow-hidden rounded-lg bg-white group-hover:opacity-75">
                       <img

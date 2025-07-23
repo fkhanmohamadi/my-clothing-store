@@ -40,7 +40,7 @@ function TopHeader() {
       <div>
         <ul className="flex justify-between gap-4">
           <li>
-            <NavLink to={""}>
+            <NavLink to={"/shopingcart"}>
               <span>
                 <HiOutlineShoppingBag className=" h-5 w-5" />
               </span>

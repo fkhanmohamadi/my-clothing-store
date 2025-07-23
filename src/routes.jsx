@@ -10,6 +10,7 @@ import PaymentResultSuccess from "./pages/payment-result-success";
 import Product from "./pages/product";
 import ProductManagment from "./pages/product-management";
 import Products from "./pages/products";
+import ShoppingCart from "./pages/cart";
 import QuantityManagment from "./pages/quantity-management";
 
 const routes = [
@@ -29,6 +30,7 @@ const routes = [
     path: "/products/category/:categoryName/subcategory/:subcategoryName",
     element: <Products />,
   },
+  { path: "/shopingcart", element: <ShoppingCart/> },
   { path: "/checkout", element: <Checkout /> },
   { path: "/paymentresult", element: <PaymentResult /> },
   { path: "/paymentresultsuccess", element: <PaymentResultSuccess /> },

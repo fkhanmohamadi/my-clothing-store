@@ -12459,115 +12459,6 @@
   ],
   "cart": [
     {
-      "id": 1,
-      "userid": 1,
-      "productid": 2,
-      "productname": "بلوز زنانه شکوه",
-      "colorId": 2,
-      "sizeId": 6,
-      "price": "980000",
-      "count": 3
-    },
-    {
-      "productid": 2,
-      "productname": "شلوار جین زنانه",
-      "colorId": 1,
-      "sizeId": 2,
-      "price": "1200000",
-      "count": 1,
-      "userid": 1,
-      "createdAt": 1752597967387,
-      "id": 2
-    },
-    {
-      "productid": 1,
-      "productname": "تاپ زنانه نینا",
-      "colorId": 1,
-      "sizeId": 2,
-      "price": "850000",
-      "count": 1,
-      "userid": 1,
-      "createdAt": 1752740967684,
-      "id": 3
-    },
-    {
-      "productid": 1,
-      "productname": "تاپ زنانه نینا",
-      "colorId": 4,
-      "sizeId": 4,
-      "price": "850000",
-      "count": 1,
-      "userid": 1,
-      "createdAt": 1752742981176,
-      "id": 4
-    },
-    {
-      "productid": 1,
-      "productname": "تاپ زنانه نینا",
-      "colorId": 2,
-      "sizeId": 5,
-      "price": "850000",
-      "count": 2,
-      "userid": 1,
-      "createdAt": 1752743101250,
-      "id": 5
-    },
-    {
-      "productid": 1,
-      "productname": "تاپ زنانه نینا",
-      "colorId": 2,
-      "sizeId": 3,
-      "price": "850000",
-      "count": 3,
-      "userid": 1,
-      "createdAt": 1752743392239,
-      "id": 6
-    },
-    {
-      "productid": 1,
-      "productname": "تاپ زنانه نینا",
-      "colorId": 2,
-      "sizeId": 6,
-      "price": "850000",
-      "count": 4,
-      "userid": 1,
-      "createdAt": 1752743491807,
-      "id": 7
-    },
-    {
-      "productid": 1,
-      "productname": "تاپ زنانه نینا",
-      "colorId": 2,
-      "sizeId": 4,
-      "price": "850000",
-      "count": 2,
-      "userid": 1,
-      "createdAt": 1752743946678,
-      "id": 8
-    },
-    {
-      "productid": 1,
-      "productname": "تاپ زنانه نینا",
-      "colorId": 4,
-      "sizeId": 6,
-      "price": "850000",
-      "count": 1,
-      "userid": 1,
-      "createdAt": 1752744011133,
-      "id": 9
-    },
-    {
-      "productid": 1,
-      "productname": "تاپ زنانه نینا",
-      "colorId": 2,
-      "sizeId": 2,
-      "price": "850000",
-      "count": 1,
-      "userid": 1,
-      "createdAt": 1752744371576,
-      "id": 10
-    },
-    {
       "productid": 1,
       "productname": "تاپ زنانه نینا",
       "colorId": 1,
@@ -12576,7 +12467,8 @@
       "count": 1,
       "userid": 1,
       "createdAt": 1752744449761,
-      "id": 11
+      "id": 11,
+      "quantity": 2
     },
     {
       "productid": 7,
@@ -12584,7 +12476,7 @@
       "colorId": 1,
       "sizeId": 2,
       "price": "1700000",
-      "count": 1,
+      "count": 2,
       "userid": 1,
       "createdAt": 1752936326623,
       "id": 12
@@ -12599,6 +12491,17 @@
       "userid": 1,
       "createdAt": 1753026704794,
       "id": 13
+    },
+    {
+      "productid": 4,
+      "productname": "تاپ دامن زنانه لوتوس",
+      "colorId": 1,
+      "sizeId": 2,
+      "price": "4200000",
+      "count": 1,
+      "userid": 2,
+      "createdAt": 1753026704794,
+      "id": 14
     }
   ],
   "services": [
