@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchCart,
@@ -13,10 +13,12 @@ import Services from "../../components/services";
 import Footer from "../../layout/footer";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { Button } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function ShoppingCart() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const packaging = 10000;
   const shipping = 50000;
 
@@ -27,9 +29,6 @@ export default function ShoppingCart() {
   ////// cart
   const cart = useSelector((state) => state.cart);
   const cartData = cart?.data?.cartData || [];
-  const cartItems = cartData?.filter((item) => {
-    return item.userid == userId;
-  });
 
   ////// Products
   const allProducts = useSelector((store) => store.products);
@@ -53,13 +52,46 @@ export default function ShoppingCart() {
     dispatch(fetchProducts());
   }, []);
 
+  const cartItems = useMemo(() => {
+    const userItems = cartData.filter((item) => item.userid === userId);
+
+    return userItems.map((item) => {
+      const product = allProductsData.find((p) => p.id === item.productid);
+      return {
+        ...item,
+        image: product?.image,
+      };
+    });
+  }, [cartData, userId, allProductsData]);
+
+  const totalPrice = useMemo(
+    () =>
+      cartItems.reduce((sum, i) => sum + Number(i.price) * Number(i.count), 0),
+    [cartItems]
+  );
+
   const handleRemove = (id) => {
     dispatch(removeFromCart(id));
   };
 
-  const handleQuantityChange = (item, quantity) => {
-    if (quantity < 1) return;
-    dispatch(updateCartItem({ ...item, quantity }));
+  const handleQuantityChange = (item, count) => {
+    if (count < 1) return;
+    dispatch(updateCartItem({ ...item, count }));
+  };
+
+  const handleSubmitOrderData = () => {
+    const orderInfo = {
+      userId,
+      cartItems,
+      packaging,
+      shipping,
+      total: totalPrice + packaging + shipping,
+      createdAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem("checkoutData", JSON.stringify(orderInfo));
+
+    navigate("/checkout");
   };
 
   return (
@@ -71,14 +103,16 @@ export default function ShoppingCart() {
         <p className="text-center mt-25">سبد خرید شما خالی است.</p>
       ) : (
         <main className="container mx-auto text-gray-800 mt-20">
+          {/*title*/}
           <div className="flex gap-2 items-center mb-5">
             <span>
               <HiOutlineShoppingBag className=" h-5 w-5" />
             </span>
             <h2 className="text-xl tracking-tighter">سبد خرید شما</h2>
           </div>
-
+          {/*body*/}
           <div className="grid grid-cols-12 gap-10">
+            {/*Cart Item*/}
             <div className="col-span-8 rounded">
               {cartItems.map((item) => (
                 <div
@@ -87,11 +121,7 @@ export default function ShoppingCart() {
                 >
                   <div className="col-span-3 rounded">
                     <img
-                      src={
-                        allProductsData?.find((product) => {
-                          return product?.id == item?.productid;
-                        })?.image
-                      }
+                      src={item.image}
                       alt="product image"
                       className="h-40"
                     />
@@ -117,6 +147,7 @@ export default function ShoppingCart() {
                     </div>
                     <div className="flex items-center gap-2">
                       <button
+                        type="button"
                         onClick={() =>
                           handleQuantityChange(item, item.count - 1)
                         }
@@ -126,6 +157,7 @@ export default function ShoppingCart() {
                       </button>
                       <span>{item.count}</span>
                       <button
+                        type="button"
                         onClick={() =>
                           handleQuantityChange(item, item.count + 1)
                         }
@@ -140,6 +172,7 @@ export default function ShoppingCart() {
                       {(item.price * item.count).toLocaleString("fa-IR")} تومان
                     </span>
                     <button
+                      type="button"
                       onClick={() => handleRemove(item.id)}
                       className="text-red-500 hover:text-red-700"
                     >
@@ -149,20 +182,14 @@ export default function ShoppingCart() {
                 </div>
               ))}
             </div>
+            {/*Peyment Info*/}
             <div className="col-span-4">
               <div className="flex flex-col bg-gray-50 rounded-md p-4">
                 <p>خلاصه سفارش</p>
                 <div className="flex justify-between items-center text-center text-sm text-gray-500 py-5 border-b border-b-gray-200">
                   <span>قیمت کل سفارش:</span>
                   <div>
-                    <span>
-                      {cartItems
-                        .reduce(
-                          (total, item) => total + item.price * item.count,
-                          0
-                        )
-                        .toLocaleString("fa-IR")}
-                    </span>
+                    <span>{totalPrice?.toLocaleString("fa-IR")}</span>
                     <span>تومان </span>
                   </div>
                 </div>
@@ -184,23 +211,20 @@ export default function ShoppingCart() {
                   <span>قیمت قابل پرداخت:</span>
                   <div>
                     <span>
-                      {(
-                        cartItems.reduce(
-                          (total, item) => total + item.price * item.count,
-                          0
-                        ) +
-                        packaging +
-                        shipping
-                      ).toLocaleString("fa-IR")}
+                      {(totalPrice + packaging + shipping).toLocaleString(
+                        "fa-IR"
+                      )}
                     </span>
                     <span>تومان </span>
                   </div>
                 </div>
-                <Button
+                <button
+                  type="button"
+                  onClick={handleSubmitOrderData}
                   className="group mt-2 relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   ثبت و مرحله بعد
-                </Button>
+                </button>
               </div>
             </div>
           </div>

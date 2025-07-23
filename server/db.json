@@ -12459,24 +12459,12 @@
   ],
   "cart": [
     {
-      "productid": 1,
-      "productname": "تاپ زنانه نینا",
-      "colorId": 1,
-      "sizeId": 3,
-      "price": "850000",
-      "count": 1,
-      "userid": 1,
-      "createdAt": 1752744449761,
-      "id": 11,
-      "quantity": 2
-    },
-    {
       "productid": 7,
       "productname": "کت زنانه ساحل",
       "colorId": 1,
       "sizeId": 2,
       "price": "1700000",
-      "count": 2,
+      "count": 3,
       "userid": 1,
       "createdAt": 1752936326623,
       "id": 12
@@ -12488,9 +12476,9 @@
       "sizeId": 2,
       "price": "4200000",
       "count": 1,
-      "userid": 1,
+      "userid": 2,
       "createdAt": 1753026704794,
-      "id": 13
+      "id": 14
     },
     {
       "productid": 4,
@@ -12499,9 +12487,20 @@
       "sizeId": 2,
       "price": "4200000",
       "count": 1,
-      "userid": 2,
-      "createdAt": 1753026704794,
-      "id": 14
+      "userid": 1,
+      "createdAt": 1753275039682,
+      "id": 15
+    },
+    {
+      "productid": 8,
+      "productname": "پانچ زنانه هاوایی",
+      "colorId": 2,
+      "sizeId": 4,
+      "price": "870000",
+      "count": 2,
+      "userid": 1,
+      "createdAt": 1753275065339,
+      "id": 16
     }
   ],
   "services": [

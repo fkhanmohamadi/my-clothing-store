@@ -20,7 +20,7 @@ export default function ProductPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const { isLoggedIn, userInfo } = useSelector((state) => state.user);
+  const { isLoggedIn, userInfo } = useSelector((state) => state.auth);
 
   ////// Products
   const allProducts = useSelector((store) => store.products);
@@ -79,6 +79,7 @@ export default function ProductPage() {
   }, [availableColors, availableSizes, reset]);
 
   const onSubmit = (data) => {
+    console.log(isLoggedIn,userInfo)
     if (!isLoggedIn || !userInfo) {
       toast.error("لطفاً ابتدا وارد حساب کاربری شوید");
       return;
