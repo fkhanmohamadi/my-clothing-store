@@ -11,7 +11,10 @@ import Product from "./pages/product";
 import ProductManagment from "./pages/product-management";
 import Products from "./pages/products";
 import ShoppingCart from "./pages/cart";
+import Profile from "./pages/profile";
 import QuantityManagment from "./pages/quantity-management";
+import ProfileHome from "./components/profile-home";
+import ProfieOrders from "./components/profile-orders";
 
 const routes = [
   { path: "/", element: <HomeScreen /> },
@@ -21,7 +24,6 @@ const routes = [
   { path: "/ordersmanagment", element: <OrdersManagment /> },
   { path: "/productmanagment", element: <ProductManagment /> },
   { path: "/quantitymanagement", element: <QuantityManagment /> },
-  { path: "/payment", element: <Payment /> },
   { path: "/product/:id", element: <Product /> },
   { path: "/products", element: <Products /> },
   { path: "/products/category/:categoryName", element: <Products /> },
@@ -30,10 +32,20 @@ const routes = [
     path: "/products/category/:categoryName/subcategory/:subcategoryName",
     element: <Products />,
   },
-  { path: "/shopingcart", element: <ShoppingCart/> },
+  { path: "/shopingcart", element: <ShoppingCart /> },
   { path: "/checkout", element: <Checkout /> },
+  { path: "/payment", element: <Payment /> },
   { path: "/paymentresult", element: <PaymentResult /> },
   { path: "/paymentresultsuccess", element: <PaymentResultSuccess /> },
+  {
+    path: "/profile",
+    element: <Profile />,
+    children: [
+      { index: true, element: <ProfileHome /> },
+      { path: "profilehome", element: <ProfileHome /> },
+      { path: "profileorder", element: <ProfieOrders /> },
+    ],
+  },
 ];
 
 export default routes;

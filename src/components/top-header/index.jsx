@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../states/slices/authSlice";
+import { useSelector } from "react-redux";
 
 import {
-  HiOutlineArrowLeftEndOnRectangle,
   HiOutlineArrowRightEndOnRectangle,
   HiOutlineMoon,
   HiOutlineShoppingBag,
+  HiOutlineUser,
 } from "react-icons/hi2";
 import {
+  IoHomeOutline,
   IoLanguageOutline,
   IoLocationOutline,
   IoSearchOutline,
@@ -19,15 +19,10 @@ import {
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 
 function TopHeader() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   const { isLoggedIn, userInfo } = useSelector((state) => state.auth);
-
-  const exitHandler = () => {
-    dispatch(logoutUser());
-  };
 
   const navigateHandler = () => {
     navigate("/login", { state: { from: location.pathname } });
@@ -39,6 +34,13 @@ function TopHeader() {
       {/* top header right */}
       <div>
         <ul className="flex justify-between gap-4">
+          <li>
+            <NavLink to={"/"}>
+              <span>
+                <IoHomeOutline className="text-orange-300 h-5 w-5" />
+              </span>
+            </NavLink>
+          </li>
           <li>
             <NavLink to={"/shopingcart"}>
               <span>
@@ -110,13 +112,13 @@ function TopHeader() {
           ) : (
             // وقتی وارد شده، دکمه خروج را نمایش بده
             <li>
-              <span
+              <Link
+                to={"/Profile"}
                 data-tooltip-id="top-header-tooltip"
-                data-tooltip-content="خروج"
-                onClick={exitHandler}
+                data-tooltip-content="پنل کاربری"
               >
-                <HiOutlineArrowLeftEndOnRectangle className="h-5 w-5 cursor-pointer" />
-              </span>
+                <HiOutlineUser className="h-5 w-5 text-orange-300 cursor-pointer" />
+              </Link>
             </li>
           )}
         </ul>

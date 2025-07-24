@@ -9,6 +9,8 @@ import { HiOutlineUser } from "react-icons/hi2";
 import { IoLocationOutline } from "react-icons/io5";
 import { HiOutlinePhone } from "react-icons/hi2";
 import { IoMdCheckboxOutline } from "react-icons/io";
+import { addToOrders } from "../../states/slices/ordersSlice";
+import { removeFromCart } from "../../states/slices/cartSlice";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ function Checkout() {
 
   const { userInfo } = useSelector((state) => state.auth);
   const [orderData, setOrderData] = useState(null);
+  const cartItems = orderData?.cartItems || [];
 
   useEffect(() => {
     const storedData = localStorage.getItem("checkoutData");
@@ -24,11 +27,37 @@ function Checkout() {
     }
   }, []);
 
-    const totalPrice = useMemo(
-      () =>
-        orderData?.cartItems.reduce((sum, i) => sum + Number(i.price) * Number(i.count), 0),
-      [orderData]
-    );
+  const totalPrice = useMemo(
+    () =>
+      cartItems.reduce((sum, i) => sum + Number(i.price) * Number(i.count), 0),
+    [orderData]
+  );
+
+  const handleOrderSubmit = async () => {
+    try {
+      const ordersData = {
+        userId: userInfo.id,
+        products: cartItems,
+        totalPrice: totalPrice,
+        createdAt: Date.now(),
+        deliveryRequestTime: Date.now() + 24 * 60 * 60 * 1000,
+        deliveryTime: null,
+        delivered: false,
+      };
+
+      const resultAction = dispatch(addToOrders(ordersData));
+
+      for (let item of cartItems) {
+        dispatch(removeFromCart(item.id));
+      }
+      
+      localStorage.removeItem("checkoutData");
+
+      navigate("/paymentresultsuccess");
+    } catch (error) {
+      console.error("خطا در ثبت سفارش:", error);
+    }
+  };
 
   return (
     <>
@@ -46,7 +75,7 @@ function Checkout() {
           <div className="col-span-8 ">
             {/* order Info */}
             <div className="col-span-8 rounded">
-              {orderData?.cartItems?.map((item) => (
+              {cartItems?.map((item) => (
                 <div
                   key={item.id}
                   className="grid grid-cols-12 border-t border-t-gray-300 p-4"
@@ -138,7 +167,7 @@ function Checkout() {
                 </div>
               </div>
               <button
-                // onClick={handleOrderSubmit}
+                onClick={handleOrderSubmit}
                 className="w-full py-2 bg-green-600 text-white rounded hover:bg-green-700"
               >
                 پرداخت و ثبت سفارش

@@ -16,7 +16,7 @@ function Services() {
   const companyServicesData = companyServices.data.servicesData;
 
   return (
-    <section className="mt-10 lg:mt-20">
+    <section className="mt-10 lg:mt-15">
       <div className="container mx-auto p-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-2 gap-y-6">
           {companyServicesData?.map((service) => {
