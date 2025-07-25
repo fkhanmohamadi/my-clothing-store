@@ -3,7 +3,7 @@ import React from "react";
 import {  useSelector } from "react-redux";
 import StatisticsList from "../../components/statistics-list";
 
-function Statistics() {
+function AdminStatistics() {
 
   const ordersCount = useSelector((store) => store.orders.data.count);
   const productsCount = useSelector((store) => store.products.data.count);
@@ -27,4 +27,4 @@ function Statistics() {
   );
 }
 
-export default Statistics;
+export default AdminStatistics;

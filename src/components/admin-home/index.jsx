@@ -1,11 +1,11 @@
 import React from 'react'
 
-function CreateProduct() {
+function AdminHome() {
   return (
     <div>
-      
+      Home
     </div>
   )
 }
 
-export default CreateProduct
+export default AdminHome

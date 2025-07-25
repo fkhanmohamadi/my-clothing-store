@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import OrdersTable from "../../components/orders-table";
-import Pagination from "../../components/pagination";
-import RadioField from "../../components/radio-field";
-import SearchField from "../../components/search-field";
-import HeaderManagment from "../../layout/header-managment";
-import Statistics from "../../layout/Statistics";
 import { fetchOrders } from "../../states/slices/ordersSlice";
-import OrderManagementModal from "../../components/order-mangement-modal";
+import OrdersTable from "../orders-table";
+import Pagination from "../pagination";
+import RadioField from "../radio-field";
+import SearchField from "../search-field";
+import OrderManagementModal from "../order-mangement-modal";
 
-function OrdersManagment() {
+function AdminOrdersManagment() {
   const orders = useSelector((store) => store.orders);
   const ordersCount = useSelector((store) => store.orders.data.count);
 
@@ -36,16 +34,14 @@ function OrdersManagment() {
   }, [paginationParams]);
 
   const searchHandler = (e) => {
-    if (e.target.value==""){
+    if (e.target.value == "") {
       setPaginationParams({
         _page: 1,
         _limit: 5,
         delivered,
       });
       dispatch(fetchOrders(paginationParams));
-    }
-
-    else{
+    } else {
       setPaginationParams({
         _page: 1,
         _limit: 5,
@@ -67,7 +63,7 @@ function OrdersManagment() {
       _limit: 5,
       delivered,
       _sort: "createdAt",
-      _order: "desc"
+      _order: "desc",
     });
     dispatch(fetchOrders(paginationParams));
   };
@@ -77,46 +73,41 @@ function OrdersManagment() {
   };
 
   return (
-    <div className="flex">
-      <HeaderManagment />
-      <div className="flex flex-col flex-1 mx-5 gap-5">
-        <Statistics />
-        <div className="flex justify-between">
-          <SearchField
-            className="p-1 w-96 text-sm bg-transparent outline-0"
-            placeholder="جستجو ..."
-            onchange={searchHandler}
-          />
-          <RadioField onchanged={handelDeliveredChenge} delivered={delivered} />
-        </div>
-        {orders.status === "success" ? (
-          <OrdersTable
-            tbodyData={orders.data.ordersData}
-            onclick={HandelSort}
-            setShowModal={setShowModal}
-            setEditedItem ={setEditedItem}
-          />
-        ) : (
-          ""
-        )}
-        <Pagination
-          paginationParams={paginationParams}
-          setPaginationParams={setPaginationParams}
-          count={ordersCount}
-          active={active}
-          setActive={setActive}
-          
+    <div className="flex flex-col flex-1 mx-5 gap-5">
+      <div className="flex justify-between">
+        <SearchField
+          className="p-1 w-96 text-sm bg-transparent outline-0"
+          placeholder="جستجو ..."
+          onchange={searchHandler}
         />
-          <OrderManagementModal
-          showModal={showModal}
-          setShowModal={setShowModal}
-          editedItem = {editedItem}
-          setEditedItem = {setEditedItem}
-          paginationParams={paginationParams}
-        />
+        <RadioField onchanged={handelDeliveredChenge} delivered={delivered} />
       </div>
+      {orders.status === "success" ? (
+        <OrdersTable
+          tbodyData={orders.data.ordersData}
+          onclick={HandelSort}
+          setShowModal={setShowModal}
+          setEditedItem={setEditedItem}
+        />
+      ) : (
+        ""
+      )}
+      <Pagination
+        paginationParams={paginationParams}
+        setPaginationParams={setPaginationParams}
+        count={ordersCount}
+        active={active}
+        setActive={setActive}
+      />
+      <OrderManagementModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        editedItem={editedItem}
+        setEditedItem={setEditedItem}
+        paginationParams={paginationParams}
+      />
     </div>
   );
 }
 
-export default OrdersManagment;
+export default AdminOrdersManagment;

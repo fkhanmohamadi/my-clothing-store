@@ -73,7 +73,7 @@ function TopHeader() {
       <div>
         <ul className="flex justify-between gap-4">
           {isLoggedIn && userInfo?.role === "admin" && (
-            <NavLink to={"/ordersmanagment"}>
+            <NavLink to={"/admin"}>
               <span className="text-xs">پنل مدیریت</span>
             </NavLink>
           )}
@@ -113,7 +113,7 @@ function TopHeader() {
             // وقتی وارد شده، دکمه خروج را نمایش بده
             <li>
               <Link
-                to={"/Profile"}
+                to={"/profile"}
                 data-tooltip-id="top-header-tooltip"
                 data-tooltip-content="پنل کاربری"
               >

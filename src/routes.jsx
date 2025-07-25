@@ -1,29 +1,30 @@
-import Checkout from "./pages/checkout";
 import HomeScreen from "./pages/home";
-import HomeManagment from "./pages/home-managment";
 import Login from "./pages/login";
 import RegisterPage from "./pages/register";
-import OrdersManagment from "./pages/orders-management";
-import Payment from "./pages/payment";
-import PaymentResult from "./pages/payment-result-fail";
-import PaymentResultSuccess from "./pages/payment-result-success";
+
 import Product from "./pages/product";
-import ProductManagment from "./pages/product-management";
 import Products from "./pages/products";
+
 import ShoppingCart from "./pages/cart";
+import Checkout from "./pages/checkout";
+import Payment from "./pages/payment";
+import PaymentResultFail from "./pages/payment-result-fail";
+import PaymentResultSuccess from "./pages/payment-result-success";
+
 import Profile from "./pages/profile";
-import QuantityManagment from "./pages/quantity-management";
 import ProfileHome from "./components/profile-home";
 import ProfieOrders from "./components/profile-orders";
+
+import Admin from "./pages/admin";
+import AdminHome from "./components/admin-home";
+import AdminOrdersManagment from "./components/admin-orders-management";
+import AdminProductManagment from "./components/admin-product-management";
+import AdminQuantityManagment from "./components/admin-quantity-management";
 
 const routes = [
   { path: "/", element: <HomeScreen /> },
   { path: "/login", element: <Login /> },
   { path: "/RegisterPage", element: <RegisterPage /> },
-  { path: "/homemanagment", element: <HomeManagment /> },
-  { path: "/ordersmanagment", element: <OrdersManagment /> },
-  { path: "/productmanagment", element: <ProductManagment /> },
-  { path: "/quantitymanagement", element: <QuantityManagment /> },
   { path: "/product/:id", element: <Product /> },
   { path: "/products", element: <Products /> },
   { path: "/products/category/:categoryName", element: <Products /> },
@@ -35,7 +36,7 @@ const routes = [
   { path: "/shopingcart", element: <ShoppingCart /> },
   { path: "/checkout", element: <Checkout /> },
   { path: "/payment", element: <Payment /> },
-  { path: "/paymentresult", element: <PaymentResult /> },
+  { path: "/Paymentresultfail", element: <PaymentResultFail /> },
   { path: "/paymentresultsuccess", element: <PaymentResultSuccess /> },
   {
     path: "/profile",
@@ -44,6 +45,17 @@ const routes = [
       { index: true, element: <ProfileHome /> },
       { path: "profilehome", element: <ProfileHome /> },
       { path: "profileorder", element: <ProfieOrders /> },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
+    children: [
+      { index: true, element: <AdminHome /> },
+      { path: "adminhome", element: <AdminHome /> },
+      { path: "adminordersmanagment", element: <AdminOrdersManagment /> },
+      { path: "adminproductmanagment", element: <AdminProductManagment /> },
+      { path: "adminquantitymanagement", element: <AdminQuantityManagment /> },
     ],
   },
 ];

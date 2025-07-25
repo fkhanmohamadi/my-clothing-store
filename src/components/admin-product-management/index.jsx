@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import Pagination from "../../components/pagination";
-import Button from "../../components/button";
-import SearchField from "../../components/search-field";
-import HeaderManagment from "../../layout/header-managment";
-import Statistics from "../../layout/Statistics";
+import Pagination from "../pagination";
+import Button from "../button";
+import SearchField from "../search-field";
 import { fetchProducts } from "../../states/slices/productsSlice";
-import ProductsTable from "../../components/products-table";
+import ProductsTable from "../products-table";
 import { fetchCategory } from "../../states/slices/categorySlice";
 import { fetchSubcategory } from "../../states/slices/subcategorySlice";
 import { fetchBrands } from "../../states/slices/bransSlice";
 import { fetchColors } from "../../states/slices/colorsSlise";
 import { fetchSizes } from "../../states/slices/sizesSlise";
-import ProductManagementModal from "../../components/product-management-modal";
+import ProductManagementModal from "../product-management-modal";
 
-function ProductManagment() {
-
+function AdminProductManagment() {
   //Store
   const products = useSelector((store) => store.products);
   const productsCount = useSelector((store) => store.products.data.count);
@@ -31,7 +28,7 @@ function ProductManagment() {
   const [searchParams, setSearchParams] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editedItem, setEditedItem] = useState(null);
-  
+
   //dispatch
   const dispatch = useDispatch();
 
@@ -58,12 +55,8 @@ function ProductManagment() {
     setShowModal(true);
   };
 
-
   return (
-    <div className="flex">
-      <HeaderManagment />
       <div className="flex flex-col flex-1 mx-5 gap-5">
-        <Statistics />
         <div className="flex justify-between">
           <SearchField
             className="p-1 w-96 text-sm bg-transparent outline-0"
@@ -87,7 +80,7 @@ function ProductManagment() {
             sizesData={sizes.data.sizesData}
             setShowModal={setShowModal}
             paginationParams={paginationParams}
-            setEditedItem ={setEditedItem}
+            setEditedItem={setEditedItem}
           />
         ) : (
           ""
@@ -108,12 +101,11 @@ function ProductManagment() {
           colorsData={colors.data.colorsData}
           sizesData={sizes.data.sizesData}
           paginationParams={paginationParams}
-          editedItem = {editedItem}
-          setEditedItem = {setEditedItem}
+          editedItem={editedItem}
+          setEditedItem={setEditedItem}
         />
       </div>
-    </div>
   );
 }
 
-export default ProductManagment;
+export default AdminProductManagment;
