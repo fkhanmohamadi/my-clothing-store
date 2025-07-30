@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 import { fetchOrders } from "../../states/slices/ordersSlice";
+import { fetchUsers } from "../../states/slices/userSlice";
 import OrdersTable from "../orders-table";
 import Pagination from "../pagination";
 import RadioField from "../radio-field";
@@ -9,68 +9,68 @@ import SearchField from "../search-field";
 import OrderManagementModal from "../order-mangement-modal";
 
 function AdminOrdersManagment() {
-  const orders = useSelector((store) => store.orders);
-  const ordersCount = useSelector((store) => store.orders.data.count);
-
   const dispatch = useDispatch();
 
-  const [active, setActive] = useState("1");
-  const [delivered, setDelivered] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [editedItem, setEditedItem] = useState(null);
+  // get orders from redux
+  const { data, status } = useSelector((state) => state.orders);
+  const orders = data?.ordersData || [];
+  const ordersCount = data?.count || 0;
 
-  const [paginationParams, setPaginationParams] = useSearchParams({
-    _page: 1,
-    _limit: 5,
-    delivered,
-  });
+  // get users from redux
+  const users = useSelector((state) => state.user);
+  const userData = users?.data?.usersData || [];
+
+  // pagination & filters state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [delivered, setDelivered] = useState("false");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const ordersPerPage = 3;
+  const totalPages = Math.ceil(ordersCount / ordersPerPage);
+
+  const getParams = () => {
+    const params = {
+      _page: currentPage,
+      _limit: ordersPerPage,
+      delivered,
+      _sort: "createdAt",
+      _order: sortOrder,
+    };
+    if (searchTerm.trim()) {
+      params.userFullName_like = searchTerm.trim();
+    }
+    return params;
+  };
 
   useEffect(() => {
-    dispatch(fetchOrders(paginationParams));
-  }, []);
+    dispatch(fetchOrders(getParams()));
+    dispatch(fetchUsers());
+  }, [dispatch, currentPage, delivered, sortOrder, searchTerm]);
 
-  useEffect(() => {
-    dispatch(fetchOrders(paginationParams));
-  }, [paginationParams]);
-
-  const searchHandler = (e) => {
-    if (e.target.value == "") {
-      setPaginationParams({
-        _page: 1,
-        _limit: 5,
-        delivered,
-      });
-      dispatch(fetchOrders(paginationParams));
-    } else {
-      setPaginationParams({
-        _page: 1,
-        _limit: 5,
-        delivered,
-        firstname: e.target.value,
-      });
-      dispatch(fetchOrders(paginationParams));
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
     }
   };
 
-  const handelDeliveredChenge = (e) => {
-    setDelivered(e.target.value === "true" ? true : false);
-    setPaginationParams({ _page: 1, _limit: 5, delivered: e.target.value });
+  const handleDeliveredChange = (e) => {
+    setDelivered(e.target.value);
+    setCurrentPage(1);
   };
 
-  const HandelSort = () => {
-    setPaginationParams({
-      _page: 1,
-      _limit: 5,
-      delivered,
-      _sort: "createdAt",
-      _order: "desc",
-    });
-    dispatch(fetchOrders(paginationParams));
+  const handleSortChange = () => {
+    setSortOrder((prev) => (prev === "desc" ? "asc" : "desc"));
+    setCurrentPage(1);
   };
 
-  const showModalHandler = () => {
-    setShowModal(true);
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
   };
+
+  const [showModal, setShowModal] = useState(false);
+  const [editedItem, setEditedItem] = useState(null);
 
   return (
     <div className="flex flex-col flex-1 mx-5 gap-5">
@@ -78,33 +78,34 @@ function AdminOrdersManagment() {
         <SearchField
           className="p-1 w-96 text-sm bg-transparent outline-0"
           placeholder="جستجو ..."
-          onchange={searchHandler}
+          onchange={handleSearchChange}
         />
-        <RadioField onchanged={handelDeliveredChenge} delivered={delivered} />
+        <RadioField onchanged={handleDeliveredChange} delivered={delivered} />
       </div>
-      {orders.status === "success" ? (
-        <OrdersTable
-          tbodyData={orders.data.ordersData}
-          onclick={HandelSort}
-          setShowModal={setShowModal}
-          setEditedItem={setEditedItem}
-        />
-      ) : (
-        ""
+
+      {status === "success" && (
+        <>
+          <OrdersTable
+            tbodyData={orders}
+            orderSortHandler={handleSortChange}
+            setShowModal={setShowModal}
+            setEditedItem={setEditedItem}
+          />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </>
       )}
-      <Pagination
-        paginationParams={paginationParams}
-        setPaginationParams={setPaginationParams}
-        count={ordersCount}
-        active={active}
-        setActive={setActive}
-      />
+
       <OrderManagementModal
         showModal={showModal}
         setShowModal={setShowModal}
         editedItem={editedItem}
         setEditedItem={setEditedItem}
-        paginationParams={paginationParams}
+        userData = {userData}
+        paginationParams={getParams()}
       />
     </div>
   );

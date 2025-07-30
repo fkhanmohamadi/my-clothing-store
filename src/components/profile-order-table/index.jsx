@@ -1,18 +1,8 @@
 import React from "react";
 import Button from "../button";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { HiOutlineChevronLeft } from "react-icons/hi";
 
-function OrdersTable({
-  tbodyData,
-  orderSortHandler,
-  setShowModal,
-  setEditedItem,
-}) {
-  const editeOrderHandler = (item) => {
-    setEditedItem(item);
-    setShowModal(true);
-  };
-
+function ProfileOrdersTable({ tbodyData }) {
   return (
     <div>
       <div className="flex flex-col">
@@ -26,13 +16,13 @@ function OrdersTable({
                       scope="col"
                       className="px-6 py-3 text-xs text-right font-bold  text-gray-500 "
                     >
-                      ردیف
+                      شناسه سفارش
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-xs text-right font-bold  text-gray-500 "
+                      className=" flex gap-1 px-6 py-3 text-xs text-right font-bold text-gray-500 "
                     >
-                      نام کاربر
+                      زمان ثبت سفارش
                     </th>
                     <th
                       scope="col"
@@ -42,18 +32,15 @@ function OrdersTable({
                     </th>
                     <th
                       scope="col"
-                      className=" flex gap-1 px-6 py-3 text-xs text-right font-bold text-gray-500 "
+                      className=" gap-1 px-6 py-3 text-xs text-right font-bold text-gray-500 "
                     >
-                      زمان ثبت سفارش
-                      <Button onclick={orderSortHandler}>
-                        <ChevronDownIcon className="h-4 w-4 text-black-500" />
-                      </Button>
+                      زمان تحویل سفارش
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-xs font-bold text-right text-gray-500 "
+                      className=" gap-1 px-6 py-3 text-xs text-right font-bold text-gray-500 "
                     >
-                      بررسی سفارش
+                      جزییات سفارش
                     </th>
                   </tr>
                 </thead>
@@ -65,7 +52,9 @@ function OrdersTable({
                           {new Intl.NumberFormat("fa-IR").format(row.id)}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                          {row.userFullName}
+                          {new Intl.DateTimeFormat("fa-IR").format(
+                            row.createdAt
+                          )}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                           {new Intl.NumberFormat("fa-IR", {
@@ -74,20 +63,12 @@ function OrdersTable({
                           }).format(row.totalPrice)}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                          {new Intl.DateTimeFormat("fa-IR").format(
-                            row.createdAt
-                          )}
+                          {row.deliveryTime?new Intl.DateTimeFormat("fa-IR").format(
+                            row.deliveryTime
+                          ):"-"}
                         </td>
-                        <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                          <a
-                            className="text-cyan-400 hover:text-cyan-700"
-                            href="#"
-                            onClick={() => {
-                              editeOrderHandler(row);
-                            }}
-                          >
-                            ویرایش سفارش
-                          </a>
+                        <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                          <HiOutlineChevronLeft />
                         </td>
                       </tr>
                     );
@@ -102,4 +83,4 @@ function OrdersTable({
   );
 }
 
-export default OrdersTable;
+export default ProfileOrdersTable;

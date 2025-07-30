@@ -1,9 +1,15 @@
 import React from "react";
 import AdminHeader from "../../layout/admin-header";
 import AdminStatistics from "../../layout/admin-Statistics";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Admin() {
+  const navigate = useNavigate();
+  const { isLoggedIn, userInfo } = useSelector((state) => state.auth);
+
+  !isLoggedIn && navigate("/");
+  
   return (
     <div className="container mx-auto mt-5 flex">
       <AdminHeader />

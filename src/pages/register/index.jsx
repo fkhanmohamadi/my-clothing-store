@@ -3,7 +3,6 @@ import { LockClosedIcon } from "@heroicons/react/20/solid";
 import TextField from "../../components/text-field";
 import ImageField from "../../components/img";
 import CheckboxField from "../../components/checkBox-field";
-import LinkFiled from "../../components/link";
 import Button from "../../components/button";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
@@ -177,12 +176,12 @@ function RegisterPage() {
             <div className="flex items-center justify-between">
               <CheckboxField id="remember-me" lable="مرا به خاطر بسپار" />
 
-              <LinkFiled
+              <Link
                 href="#"
                 className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
               >
                 رمز عبور خود را فراموش کرده ام؟
-              </LinkFiled>
+              </Link>
             </div>
 
             <div>

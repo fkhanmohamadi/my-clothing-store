@@ -9,7 +9,7 @@ function RadioField({ onchanged, delivered }) {
           id="delivered"
           name="delivery"
           value="true"
-          checked={delivered}
+          checked={delivered === "true"}
           onChange={onchanged}
         />
         <label className="text-sm text-gray-500	" htmlFor="delivered">
@@ -22,7 +22,7 @@ function RadioField({ onchanged, delivered }) {
           id="undelivered"
           name="delivery"
           value="false"
-          checked={!delivered}
+          checked={delivered === "false"}
           onChange={onchanged}
         />
         <label className="text-sm text-gray-500	" htmlFor="undelivered">

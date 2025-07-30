@@ -37,6 +37,7 @@ function Checkout() {
     try {
       const ordersData = {
         userId: userInfo.id,
+        userFullName: userInfo.fName + " " + userInfo.lName,
         products: cartItems,
         totalPrice: totalPrice,
         createdAt: Date.now(),
@@ -50,7 +51,7 @@ function Checkout() {
       for (let item of cartItems) {
         dispatch(removeFromCart(item.id));
       }
-      
+
       localStorage.removeItem("checkoutData");
 
       navigate("/paymentresultsuccess");

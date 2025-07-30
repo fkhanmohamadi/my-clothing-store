@@ -41,7 +41,6 @@ const ordersSlice = createSlice({
       .addCase(addToOrders.fulfilled, (state, action) => {
         state.status = "success";
         state.data = action.payload;
-        
       });
   },
 });

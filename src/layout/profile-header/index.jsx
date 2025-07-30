@@ -7,6 +7,7 @@ import { FaRegAddressCard } from "react-icons/fa6";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { IoSettingsOutline } from "react-icons/io5";
 
+
 import HeaderManagmentList from "../../components/header-mangment-list";
 import { logoutUser } from "../../states/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,13 +44,13 @@ function ProfileHeader() {
               <RiListUnordered className="h-5 w-5 text-orange-300" />
             </HeaderManagmentList>
             <HeaderManagmentList
-              href="/productmanagment"
+              href="#"
               title="درخواست مرجوعی"
             >
               <GiReturnArrow className="h-5 w-5 text-orange-300" />
             </HeaderManagmentList>
             <HeaderManagmentList
-              href="/quantitymanagement"
+              href="#"
               title="لیست آدرس ها"
             >
               <FaRegAddressCard className="h-5 w-5 text-orange-300" />

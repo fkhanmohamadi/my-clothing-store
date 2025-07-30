@@ -68,7 +68,7 @@ function AdminQuantityManagment() {
           ذخیره
         </Button>
       </div>
-      {products.status === "success" ? (
+      {/* {products.status === "success" ? (
         <QuantityTable
           tbodyData={products.data.productsData}
           editPriceArr={editPriceArr}
@@ -78,7 +78,7 @@ function AdminQuantityManagment() {
         />
       ) : (
         ""
-      )}
+      )} */}
       <Pagination
         paginationParams={paginationParams}
         setPaginationParams={setPaginationParams}

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../button";
-import { useDispatch } from "react-redux";
+import { useDispatch,  } from "react-redux";
 import { editOrderService } from "../../api/services/editOrder";
 import { useForm } from "react-hook-form";
 import { fetchOrders } from "../../states/slices/ordersSlice";
@@ -10,13 +10,17 @@ export default function OrderManagementModal({
   setShowModal,
   setEditedItem,
   editedItem,
+  userData,
   paginationParams,
 }) {
-  const dispatch = useDispatch();
-  // console.log(editedItem);
 
-  const products = editedItem ? editedItem.products : "";
-  // console.log(products);
+  const dispatch = useDispatch();
+
+  const userInfo = userData.find((user) => {
+    return user?.id == editedItem?.userId;
+  });
+  const products = editedItem?.products || [];
+
 
   const { handleSubmit } = useForm();
 
@@ -30,7 +34,7 @@ export default function OrderManagementModal({
 
     try {
       const result = await editOrderService(editedItem.id, newOrder);
-      dispatch(fetchOrders(paginationParams));
+      dispatch(fetchOrders(paginationParams()));
     } catch (error) {
       console.log(error);
     }
@@ -72,9 +76,7 @@ export default function OrderManagementModal({
                           id="name"
                           name="name"
                           readOnly
-                          value={
-                            editedItem.firstname + " " + editedItem.lastname
-                          }
+                          value={editedItem.userFullName}
                           className="w-min"
                         />
                       </div>
@@ -85,7 +87,7 @@ export default function OrderManagementModal({
                           id="address"
                           name="address"
                           readOnly
-                          value={editedItem.address}
+                          value={userInfo.address}
                         />
                       </div>
                       <div className="flex items-center gap-5">
@@ -95,7 +97,7 @@ export default function OrderManagementModal({
                           id="phone"
                           name="phone"
                           readOnly
-                          value={editedItem.phone}
+                          value={userInfo.phone}
                         />
                       </div>
                       <div className="flex items-center gap-5">
@@ -135,7 +137,7 @@ export default function OrderManagementModal({
                                         {product.id}
                                       </td>
                                       <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        {product.product}
+                                        {product.productname}
                                       </td>
                                       <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                                         {product.price}

@@ -11,56 +11,69 @@ import { uploadImage } from "../../api/services/uploadImage";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../../states/slices/productsSlice";
 import { editProductService } from "../../api/services/editProduct";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-const schema = yup.object({
-  thumbnail: yup.mixed().test(
-    "fileNumber",
-    "وارد کردن تصویر الزامی می باشد.",
-    (files) =>
-      !files || // Check if `files` is defined
-      files.length > 0 // Check if `files` has attachment
-  ),
-  name: yup.string().required("نام محصول الزامیست ."),
-  image: yup.mixed().test(
-    "fileNumber",
-    "وارد کردن تصویر الزامی می باشد.",
-    (files) =>
-      !files || // Check if `files` is defined
-      files.length > 0 // Check if `files` has attachment
-  ),
-  price: yup.string().required("قیمت محصول الزامیست ."),
-  quantity: yup.string().required("تعداد محصول الزامیست ."),
-  brand: yup.string().required(" برند محصول الزامیست ."),
-  color: yup.string().required(" رنگ محصول الزامیست ."),
-  size: yup.string().required(" سایز محصول الزامیست ."),
-  category: yup.string().required(" دسته بندی محصول الزامیست ."),
-  subcategory: yup.string().required(" زیر دسته بندی محصول الزامیست ."),
-  code: yup.string().required("کد محصول الزامیست ."),
-  // description: yup.string().required("توضیحات محصول الزامیست ."),
-});
-
-const uploadHandler = async (img) => {
-  let formData = new FormData();
-  formData.append("image", img);
-  const res = await uploadImage(formData);
-  return res.filename;
-};
+import { useFieldArray } from "react-hook-form";
 
 export default function ProductManagementModal({
   showModal,
   setShowModal,
   categoryData,
   subcategoryData,
-  brandsData,
   colorsData,
   sizesData,
   paginationParams,
   setEditedItem,
   editedItem,
 }) {
+  const breadcrumbs = [
+    {
+      id: 1,
+      name: "Woman",
+      href: "/products/women",
+    },
+    {
+      id: 2,
+      name: "Clothing",
+      href: "/products/women/clothing",
+    },
+  ];
+  const reviews = {
+    href: "#",
+    average: 4,
+    totalCount: 117,
+  };
+
+  const dispatch = useDispatch();
+
+  const schema = yup.object({
+    name: yup.string().required("نام محصول الزامیست."),
+    image: yup
+      .mixed()
+      .test(
+        "fileNumber",
+        "وارد کردن تصویر الزامی می باشد.",
+        (files) => !files || files.length > 0
+      ),
+    price: yup.string().required("قیمت محصول الزامیست."),
+    category: yup.string().required("دسته بندی محصول الزامیست."),
+    subcategory: yup.string().required("زیر دسته بندی محصول الزامیست."),
+    description: yup.string().required("توضیحات محصول الزامیست."),
+    details: yup.string().required("جزییات محصول الزامیست."),
+    variants: yup.array().of(
+      yup.object().shape({
+        colorId: yup.string().required("رنگ الزامیست"),
+        sizeId: yup.string().required("سایز الزامیست"),
+        quantity: yup.number().required("تعداد الزامیست"),
+      })
+    ),
+    highlights: yup.array().of(
+      yup.object().shape({
+        name: yup.string().required("ویژگی الزامیست"),
+      })
+    ),
+  });
+
   const {
+    control,
     reset,
     register,
     handleSubmit,
@@ -68,6 +81,28 @@ export default function ProductManagementModal({
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
+    defaultValues: {
+      highlights: [{ name: "" }],
+      variants: [{ colorId: "", sizeId: "", quantity: "" }],
+    },
+  });
+
+  const {
+    fields: highlightFields,
+    append: appendHighlight,
+    remove: removeHighlight,
+  } = useFieldArray({
+    control,
+    name: "highlights",
+  });
+
+  const {
+    fields: variantFields,
+    append: appendVariant,
+    remove: removeVariant,
+  } = useFieldArray({
+    control,
+    name: "variants",
   });
 
   useEffect(() => {
@@ -78,40 +113,37 @@ export default function ProductManagementModal({
     }
   }, [editedItem]);
 
-  const dispatch = useDispatch();
+  const uploadHandler = async (img) => {
+    let formData = new FormData();
+    formData.append("image", img);
+    const res = await uploadImage(formData);
+    return res.filename;
+  };
 
   const submitForm = async (data) => {
     console.log(data);
-    let thumbnail = await uploadHandler(data.thumbnail[0]);
-
-    let image = [];
-    for (let i = 0; i < data.image.length; i++) {
-      const res = await uploadHandler(data.image[i]);
-      image.push(res);
-    }
+    let image = await uploadHandler(data.image[0]);
 
     if (editedItem !== null) {
-      if (!thumbnail) {
-        thumbnail = data.thumbnail;
-      }
-      if (!image[0]) {
+      if (!image) {
         image = data.image;
       }
     }
 
     const newProduct = {
       name: data.name,
-      code: data.code,
       image: image,
-      thumbnail: thumbnail,
+      thumbnail: image,
       price: Number(data.price),
-      quantity: Number(data.quantity),
-      color: Number(data.color),
-      size: Number(data.size),
-      brand: Number(data.brand),
       category: Number(data.category),
       subcategory: Number(data.subcategory),
-      description: "",
+      createdAt: data.createdAt,
+      description: data.description,
+      details: data.details,
+      variants: data.variants,
+      breadcrumbs: breadcrumbs,
+      highlights: data.highlights,
+      reviews: reviews,
     };
     try {
       if (editedItem !== null) {
@@ -119,7 +151,7 @@ export default function ProductManagementModal({
       } else {
         const result = await addProductService(newProduct);
       }
-      dispatch(fetchProducts(paginationParams));
+      dispatch(fetchProducts(paginationParams()));
     } catch (error) {
       console.log(error);
     }
@@ -131,7 +163,7 @@ export default function ProductManagementModal({
       {showModal ? (
         <>
           <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="w-1/2 relative my-6 mx-auto">
+            <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto relative my-6 mx-auto">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
@@ -153,19 +185,7 @@ export default function ProductManagementModal({
                     className=" mt-2 space-y-2 flex flex-col text-sm"
                     onSubmit={handleSubmit(submitForm)}
                   >
-                    <div className="flex gap-5">
-                      <div className="basis-1/5">
-                        <TextField
-                          id="code"
-                          lable="کد کالا"
-                          name="code"
-                          type="text"
-                          className="rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          placeholder=""
-                          error={errors.code?.message}
-                          validation={{ ...register("code") }}
-                        />
-                      </div>
+                    <div className="flex justify-between items-center gap-2">
                       <div className="basis-4/5">
                         <TextField
                           id="name"
@@ -179,102 +199,30 @@ export default function ProductManagementModal({
                         />
                       </div>
                     </div>
-
-                    <div className="flex justify-between">
-                      <FileField
-                        id="thumbnail"
-                        lable=" تصویر کالا"
-                        name="thumbnail"
-                        error={errors.thumbnail?.message}
-                        validation={{ ...register("thumbnail") }}
-                      />
+                    <div className="">
                       <FileField
                         id="image"
-                        lable="سایر تصاویر کالا"
+                        lable="تصویر کالا"
                         name="image"
                         multiple
                         error={errors.image?.message}
                         validation={{ ...register("image") }}
                       />
                     </div>
-                    <div className="flex justify-between">
-                      <TextField
-                        id="price"
-                        lable="قیمت کالا"
-                        name="price"
-                        type="text"
-                        className="rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder=""
-                        error={errors.price?.message}
-                        validation={{ ...register("price") }}
-                      />
-                      <TextField
-                        id="quantity"
-                        lable="تعداد کالا"
-                        name="quantity"
-                        type="text"
-                        className="rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder=""
-                        error={errors.quantity?.message}
-                        validation={{ ...register("quantity") }}
-                      />
-                      <div className="flex flex-col">
-                        <label htmlFor="color">رنگ کالا</label>
-                        <select
-                          id="color"
-                          name="color"
-                          {...register("color")}
+                    <div className="flex justify-between items-center gap-2">
+                      <div className="basis-1/3">
+                        <TextField
+                          id="price"
+                          lable="قیمت کالا"
+                          name="price"
+                          type="text"
                           className="rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        >
-                          {colorsData.map((row, index) => {
-                            return (
-                              <OptionField value={row.id}>
-                                {row.fname}
-                              </OptionField>
-                            );
-                          })}
-                        </select>
-                        <p>{errors.color?.message}</p>
+                          placeholder=""
+                          error={errors.price?.message}
+                          validation={{ ...register("price") }}
+                        />
                       </div>
-                      <div className="flex flex-col">
-                        <label htmlFor="size">سایز کالا</label>
-                        <select
-                          id="size"
-                          name="size"
-                          {...register("size")}
-                          className="rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        >
-                          {sizesData.map((row, index) => {
-                            return (
-                              <OptionField value={row.id}>
-                                {row.name}
-                              </OptionField>
-                            );
-                          })}
-                        </select>
-                        <p>{errors.size?.message}</p>
-                      </div>
-                    </div>
-                    <div className="flex justify-between">
-                      <div className="flex flex-col">
-                        <label htmlFor="brand">برند کالا</label>
-                        <select
-                          id="brand"
-                          name="brand"
-                          {...register("brand")}
-                          className="rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        >
-                          {brandsData.map((row, index) => {
-                            return (
-                              <OptionField value={row.id}>
-                                {row.name}
-                              </OptionField>
-                            );
-                          })}
-                        </select>
-                        <p>{errors.brand?.message}</p>
-                      </div>
-                      <div className="flex flex-col">
+                      <div className="basis-1/3 flex flex-col">
                         <label htmlFor="category">دسته بندی کالا</label>
                         <select
                           id="category"
@@ -292,7 +240,7 @@ export default function ProductManagementModal({
                         </select>
                         <p>{errors.category?.message}</p>
                       </div>
-                      <div className="flex flex-col">
+                      <div className="basis-1/3 flex flex-col">
                         <label htmlFor="subcategory">زیر دسته بندی کالا</label>
                         <select
                           id="subcategory"
@@ -311,18 +259,123 @@ export default function ProductManagementModal({
                         <p>{errors.subcategory?.message}</p>
                       </div>
                     </div>
-                      <CKEditor
-                        id="description"
-                        name="description"
-                        editor={ClassicEditor}
-                        // data={row.description}
-                        // onReady={(editor) => {
-                        //   // You can store the "editor" and use when it is needed.
-                        //   console.log("Editor is ready to use!", editor);
-                        // }}
-                        // {...register("description")}
-                      />
-                      {/* <p>{errors.description?.message}</p> */}
+                    <div className="flex justify-between items-center gap-1">
+                      <div className="basis-1/3 flex flex-col">
+                        <label htmlFor="description">توضیحات</label>
+                        <textarea
+                          id="description"
+                          className="h-50 rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          {...register("description")}
+                        ></textarea>
+                        <p>{errors.description?.message}</p>
+                      </div>
+                      <div className="basis-1/3 flex flex-col ">
+                        <label htmlFor="details">جزییات</label>
+                        <textarea
+                          id="details"
+                          className="h-50 rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          {...register("details")}
+                        >
+                          {" "}
+                        </textarea>
+                        <p>{errors.details?.message}</p>
+                      </div>
+                      <div className="basis-1/3 flex flex-col">
+                        <label>ویژگی‌ها</label>
+                        {highlightFields.map((field, index) => (
+                          <div
+                            key={field.id}
+                            className="flex items-center gap-1 mb-1"
+                          >
+                            <input
+                              type="text"
+                              className="flex-1 rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600"
+                              placeholder="مثال: نرمی و زبری: نرم"
+                              {...register(`highlights.${index}.name`)}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeHighlight(index)}
+                              className="text-red-500"
+                            >
+                              حذف
+                            </button>
+                          </div>
+                        ))}
+                        <button
+                          type="button"
+                          onClick={() => appendHighlight({ name: "" })}
+                          className="text-indigo-600 text-sm mt-1"
+                        >
+                          + افزودن ویژگی
+                        </button>
+                        <p className="text-red-500">
+                          {errors.highlights?.message}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="border-t pt-4 mt-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        تنوع‌ها (رنگ، سایز، موجودی)
+                      </label>
+                      {variantFields.map((field, index) => (
+                        <div
+                          key={field.id}
+                          className="flex gap-2 mt-2 items-center"
+                        >
+                          <select
+                            {...register(`variants.${index}.colorId`)}
+                            className="w-1/3 rounded-md border-0 p-2 ring-1 ring-inset ring-gray-300"
+                          >
+                            <option value="">رنگ</option>
+                            {colorsData.map((color) => (
+                              <option key={color.id} value={color.id}>
+                                {color.fname}
+                              </option>
+                            ))}
+                          </select>
+                          <select
+                            {...register(`variants.${index}.sizeId`)}
+                            className="w-1/3 rounded-md border-0 p-2 ring-1 ring-inset ring-gray-300"
+                          >
+                            <option value="">سایز</option>
+                            {sizesData.map((size) => (
+                              <option key={size.id} value={size.id}>
+                                {size.name}
+                              </option>
+                            ))}
+                          </select>
+                          <input
+                            type="number"
+                            placeholder="موجودی"
+                            {...register(`variants.${index}.quantity`)}
+                            className="w-1/3 rounded-md border-0 p-2 ring-1 ring-inset ring-gray-300"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeVariant(index)}
+                            className="text-red-500"
+                          >
+                            حذف
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          appendVariant({
+                            colorId: "",
+                            sizeId: "",
+                            quantity: "",
+                          })
+                        }
+                        className="text-indigo-600 text-sm mt-2"
+                      >
+                        + افزودن تنوع
+                      </button>
+                      <p className="text-red-500">{errors.variants?.message}</p>
+                    </div>
+
                     <div>
                       <Button
                         type="submit"
