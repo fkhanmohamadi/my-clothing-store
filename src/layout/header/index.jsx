@@ -1,18 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import Logo from "../../components/logo";
 import MobileTopHeader from "../../components/mobile-top-header";
 import TopHeader from "../../components/top-header";
 import Navbar from "../../components/navbar";
 import MobileNavbar from "../../components/mobile-navbar";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 function Header({ lineMenu }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -22,15 +16,13 @@ function Header({ lineMenu }) {
     }
   }, [lineMenu]);
 
-
   const handleScroll = () => {
     if (window.scrollY > 50) {
       setIsScrolled(true);
-    } else if(window.scrollY < 10 && !lineMenu ) {
+    } else if (window.scrollY < 10 && !lineMenu) {
       setIsScrolled(false);
     }
   };
-
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);

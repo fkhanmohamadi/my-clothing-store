@@ -9,10 +9,11 @@ function CategoryBanner() {
         <HomeSubTitle
           categoryName={"جدیدترین محصولات"}
           linkName={"مشاهده همه"}
+          to={"/products/subcategory/new"}
         />
 
         <div className="h-80 mt-6 grid grid-cols-1 sm:grid-cols-2 gap-5 text-white">
-          <Link to={"/products/category/woman/subcategory/new"} className="flex flex-col justify-center items-center bg-CategoryBanner1">
+          <Link to={"/products/category/women/subcategory/new"} className="flex flex-col justify-center items-center bg-CategoryBanner1">
               <p className="text-lg sm:text-2xl pb-3 sm:pb-5 font-mono tracking-tighter">
                 جدیدترین های زنانه
               </p>

@@ -12067,14 +12067,14 @@
       "id": "18",
       "categoryId": "5",
       "subcategoryId": "6",
-      "href": "/products/category/bag/subcategory/new",
+      "href": "/products/category/bags/subcategory/new",
       "image": "/images/navbar/SportBag.webp"
     },
     {
       "id": "19",
       "categoryId": "5",
       "subcategoryId": "7",
-      "href": "/products/category/Shoe/subcategory/new",
+      "href": "/products/category/shoes/subcategory/new",
       "image": "/images/navbar/TeenagerShoe.webp"
     },
     {

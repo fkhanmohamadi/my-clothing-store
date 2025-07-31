@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineChevronLeft } from "react-icons/hi2";
 
-function HomeSubTitle({ categoryName, linkName }) {
+function HomeSubTitle({ categoryName, linkName, to }) {
   return (
     <div className="flex justify-between items-center w-full text-gray-800">
       <h2 className="text-base sm:text-xl">
         {categoryName}
       </h2>
-      <Link to={"/"} className="flex items-center gap-0.5">
+      <Link to={to} className="flex items-center gap-0.5">
         <span className="text-xs sm:text-base text-orange-200">
           {linkName}
         </span>

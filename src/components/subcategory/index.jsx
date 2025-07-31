@@ -40,6 +40,7 @@ export default function SubCategory() {
         <HomeSubTitle
           categoryName={"دسته بندی محصولات"}
           linkName={"مشاهده همه"}
+          to={"/products"}
         />
         <div className="relative mt-6">
           <div className="custom-prev absolute top-1/2 left-3 z-10 -translate-y-1/2 cursor-pointer text-gray-500  bg-gray-100 hover:bg-gray-300 p-2 rounded-full shadow-md">
@@ -89,8 +90,8 @@ export default function SubCategory() {
                       />
                     </div>
                     <h3 className="mt-2 text-sm text-gray-500 text-center">
-                        <span />
-                        {subCategory.name}
+                      <span />
+                      {subCategory.name}
                     </h3>
                   </div>
                 </Link>

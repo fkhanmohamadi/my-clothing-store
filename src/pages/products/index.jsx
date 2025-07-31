@@ -16,9 +16,12 @@ function Products() {
   ////// params
   const { categoryName, subcategoryName } = useParams();
   const categoryId = categoryName ? categoryMap[categoryName] : null;
-  const subcategoryId = subcategoryName
-    ? subcategoryMap[subcategoryName]
-    : null;
+  let subcategoryId = subcategoryName ? subcategoryMap[subcategoryName] : null;
+
+  //اگر جدیدترین محصولات (کیف، کفش، لباس، اکسسوری) بود
+  if (subcategoryName == "new" && !categoryId) {
+    subcategoryId = categoryName ? subcategoryMap[categoryName] : null;
+  }
 
   const dispatch = useDispatch();
 
@@ -40,24 +43,38 @@ function Products() {
   const [sortBy, setSortBy] = useState("");
   const [visibleCount, setVisibleCount] = useState(4);
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-    setSelectedColor("");
-    setSelectedSize("");
-    setSortBy("");
-    setVisibleCount(4);
-  }, [dispatch, categoryId, subcategoryId]);
+  const getParams = () => {
+    const params = {
+      _sort: "createdAt",
+      _order: "desc",
+    };
+    categoryId && (params.category = categoryId);
+    subcategoryId && (params.subcategory = subcategoryId);
+
+    //اگر جدیدترین ها بود 20 تای آخر رو نشون بده
+    if (subcategoryName == "new") {
+      params._page = 1;
+      params._limit = 12;
+    }
+    return params;
+  };
 
   useEffect(() => {
     dispatch(fetchColors());
     dispatch(fetchSizes());
   }, []);
 
+  useEffect(() => {
+    dispatch(fetchProducts(getParams()));
+    setSelectedColor("");
+    setSelectedSize("");
+    setSortBy("");
+    setVisibleCount(4);
+  }, [dispatch, categoryId, subcategoryId]);
+
   // Filter and sort products
 
   let productsFiltered = allProductsData.filter((product) => {
-    if (categoryId && product.category !== categoryId) return false;
-    if (subcategoryId && product.subcategory !== subcategoryId) return false;
     if (selectedColor && product.color !== Number(selectedColor)) return false;
     if (selectedSize && product.size !== Number(selectedSize)) return false;
     return true;
@@ -116,7 +133,6 @@ function Products() {
             onChange={(e) => setSortBy(e.target.value)}
             className="border border-gray-400 p-2 rounded"
           >
-            <OptionField value="">مرتب‌سازی</OptionField>
             <OptionField value="newest">جدیدترین</OptionField>
             <OptionField value="priceLowHigh">ارزان‌ترین</OptionField>
             <OptionField value="priceHighLow">گران‌ترین</OptionField>

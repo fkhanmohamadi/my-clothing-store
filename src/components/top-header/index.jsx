@@ -17,12 +17,15 @@ import {
   IoSearchOutline,
 } from "react-icons/io5";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
+import SearchSidebar from "../sidbar-search";
 
 function TopHeader() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const { isLoggedIn, userInfo } = useSelector((state) => state.auth);
+
+  const [openSerach, setOpenSearch] = useState(false);
 
   const navigateHandler = () => {
     navigate("/login", { state: { from: location.pathname } });
@@ -56,11 +59,13 @@ function TopHeader() {
             </NavLink>
           </li>
           <li>
-            <NavLink to={""}>
-              <span>
-                <IoSearchOutline className="h-5 w-5" />
-              </span>
-            </NavLink>
+            <span onClick={() => setOpenSearch(true)}>
+              <IoSearchOutline className="h-5 w-5" />
+            </span>
+            <SearchSidebar
+              isOpen={openSerach}
+              onClose={() => setOpenSearch(false)}
+            />
           </li>
           {isLoggedIn && userInfo ? (
             <li>

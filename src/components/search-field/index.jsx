@@ -1,7 +1,7 @@
 import React from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-function SearchField({placeholder, className, onchange}) {
+function SearchField({ placeholder, className, onchange, value = "" }) {
   return (
     <div className="flex items-center justify-between bg-gray-100 py-1 px-2 rounded-lg">
       <div className="flex pointer">
@@ -9,9 +9,10 @@ function SearchField({placeholder, className, onchange}) {
       </div>
       <input
         type="text"
+        value={value}
         className={className}
         placeholder={placeholder}
-        onChange = {(e)=>onchange(e)}
+        onChange={(e) => onchange(e)}
       />
     </div>
   );

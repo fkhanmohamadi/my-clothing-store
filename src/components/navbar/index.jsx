@@ -7,6 +7,7 @@ import { fetchcategorySubcategoryRel } from "../../states/slices/categorySubcate
 import { useEffect } from "react";
 
 function Navbar({ isMenuHovered, setIsMenuHovered, isScrolled }) {
+  
   const category = useSelector((store) => store.category);
   const subCategory = useSelector((store) => store.subcategory);
   const categorySubcategoryRelation = useSelector(
