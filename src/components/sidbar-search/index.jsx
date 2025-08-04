@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { IoCloseOutline } from "react-icons/io5";
-import SearchField from "../search-field"
+import { Link } from "react-router-dom";
 
 export default function SearchSidebar({ isOpen, onClose }) {
   const [query, setQuery] = useState("");
@@ -21,13 +21,14 @@ export default function SearchSidebar({ isOpen, onClose }) {
       <div className="flex justify-between items-center p-4 border-b">
         <h2 className="text-lg font-semibold">جستجو</h2>
         <button onClick={onClose} className="text-gray-500 hover:text-black">
-          <IoCloseOutline  className="h-5 w-5"/>
+          <IoCloseOutline className="h-5 w-5" />
         </button>
       </div>
       <div className="p-4">
-        <SearchField
+        <input
+          type="text"
           placeholder="جستجو در نام محصول..."
-          className="w-full border px-3 py-2 rounded text-gray-800"
+          className="w-full text-gray-700 text-sm px-3 py-2 rounded  shadow-sm"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -35,14 +36,19 @@ export default function SearchSidebar({ isOpen, onClose }) {
 
       <div className="p-4 space-y-2 overflow-y-auto max-h-[70%]">
         {query.trim() === "" ? (
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-300 text-xs">
             لطفاً عبارتی برای جستجو وارد کنید
           </p>
         ) : filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
-            <div key={product.id} className="border p-2 rounded shadow-sm">
-              <p className="font-medium">{product.name}</p>
-            </div>
+            <Link to={`/product/${product.id}`}>
+              <div
+                key={product.id}
+                className="text-sm text-gray-800 p-2 mb-3 rounded shadow-sm"
+              >
+                <p className="font-medium">{product.name}</p>
+              </div>
+            </Link>
           ))
         ) : (
           <p className="text-red-400 text-sm">محصولی پیدا نشد</p>

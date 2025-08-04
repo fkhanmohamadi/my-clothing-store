@@ -61,7 +61,7 @@ function ProfieOrders() {
 
       {ordersData && (
         <>
-          <ProfileOrdersTable tbodyData={ordersData} />
+          <ProfileOrdersTable ordersData={ordersData} />
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

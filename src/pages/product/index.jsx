@@ -34,8 +34,18 @@ export default function ProductPage() {
   const sizes = useSelector((store) => store.sizes);
   const sizesData = sizes?.data?.sizesData || [];
 
+
+  
+  const getParams = () => {
+    const params = {
+      _sort: "createdAt",
+      _order: "desc",
+    };
+    return params;
+  };
+
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts(getParams()));
     dispatch(fetchColors());
     dispatch(fetchSizes());
   }, [dispatch]);

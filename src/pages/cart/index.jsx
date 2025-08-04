@@ -43,13 +43,27 @@ export default function ShoppingCart() {
   const sizesData = sizes?.data?.sizesData || [];
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn]);
+
+    const getParams = () => {
+    const params = {
+      _sort: "createdAt",
+      _order: "desc",
+    };
+    return params;
+  };
+
+  useEffect(() => {
     dispatch(fetchCart(userId));
   }, [dispatch, userId]);
 
   useEffect(() => {
     dispatch(fetchColors());
     dispatch(fetchSizes());
-    dispatch(fetchProducts());
+    dispatch(fetchProducts(getParams()));
   }, []);
 
   const cartItems = useMemo(() => {
@@ -102,31 +116,31 @@ export default function ShoppingCart() {
       ) : cartItems.length === 0 ? (
         <p className="text-center mt-25">سبد خرید شما خالی است.</p>
       ) : (
-        <main className="container mx-auto text-gray-800 mt-20">
+        <main className="container mx-auto text-gray-800 mt-25 lg:mb-20">
           {/*title*/}
-          <div className="flex gap-2 items-center mb-5">
+          <div className="flex gap-2 items-center mb-5 p-2">
             <span>
               <HiOutlineShoppingBag className=" h-5 w-5" />
             </span>
             <h2 className="text-xl tracking-tighter">سبد خرید شما</h2>
           </div>
           {/*body*/}
-          <div className="grid grid-cols-12 gap-10">
+          <div className="grid lg:grid-cols-12 gap-10">
             {/*Cart Item*/}
-            <div className="col-span-8 rounded">
+            <div className="lg:col-span-8 rounded">
               {cartItems.map((item) => (
                 <div
                   key={item.id}
                   className="grid grid-cols-12 border-t border-t-gray-300 p-4"
                 >
-                  <div className="col-span-3 rounded">
+                  <div className="col-span-4 lg:col-span-3 rounded">
                     <img
                       src={item.image}
                       alt="product image"
                       className="h-40"
                     />
                   </div>
-                  <div className="col-span-6 flex flex-col justify-between rounded">
+                  <div className="col-span-4 lg:col-span-6 flex flex-col justify-between rounded">
                     <div className="flex flex-col gap-y-1">
                       <p className="font-semibold">{item.productname}</p>
                       <p className="text-sm text-gray-500">
@@ -167,7 +181,7 @@ export default function ShoppingCart() {
                       </button>
                     </div>
                   </div>
-                  <div className="col-span-3 flex flex-col justify-between items-end rounded">
+                  <div className="col-span-4 lg:col-span-3 flex flex-col justify-between items-end rounded">
                     <span>
                       {(item.price * item.count).toLocaleString("fa-IR")} تومان
                     </span>
@@ -183,7 +197,7 @@ export default function ShoppingCart() {
               ))}
             </div>
             {/*Peyment Info*/}
-            <div className="col-span-4">
+            <div className="lg:col-span-4">
               <div className="flex flex-col bg-gray-50 rounded-md p-4">
                 <p>خلاصه سفارش</p>
                 <div className="flex justify-between items-center text-center text-sm text-gray-500 py-5 border-b border-b-gray-200">

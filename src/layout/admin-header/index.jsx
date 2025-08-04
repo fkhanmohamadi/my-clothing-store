@@ -15,7 +15,7 @@ function AdminHeader() {
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-   dispatch(logoutUser());
+    dispatch(logoutUser());
   };
 
   return (
