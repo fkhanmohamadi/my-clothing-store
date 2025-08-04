@@ -4,7 +4,7 @@ import Logo from "../../components/logo";
 import MobileTopHeader from "../../components/mobile-top-header";
 import TopHeader from "../../components/top-header";
 import Navbar from "../../components/navbar";
-import MobileNavbar from "../../components/mobile-navbar";
+import MobileMenu from "../../components/mobile-menu";
 
 function Header({ lineMenu }) {
   const [isMenuHovered, setIsMenuHovered] = useState(false);
@@ -57,7 +57,7 @@ function Header({ lineMenu }) {
         <MobileTopHeader />
       </div>
       <div className="lg:hidden fixed bottom-0 left-0 w-full z-50">
-        <MobileNavbar />
+        <MobileMenu />
       </div>
     </header>
   );

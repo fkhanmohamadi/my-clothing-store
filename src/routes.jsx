@@ -20,6 +20,7 @@ import AdminHome from "./components/admin-home";
 import AdminOrdersManagment from "./components/admin-orders-management";
 import AdminProductManagment from "./components/admin-product-management";
 import AdminQuantityManagment from "./components/admin-quantity-management";
+import MobileCategory from "./pages/mobile-category";
 
 const routes = [
   { path: "/", element: <HomeScreen /> },
@@ -33,6 +34,7 @@ const routes = [
     path: "/products/category/:categoryName/subcategory/:subcategoryName",
     element: <Products />,
   },
+  { path: "/MobileCategory", element: <MobileCategory /> },
   { path: "/shopingcart", element: <ShoppingCart /> },
   { path: "/checkout", element: <Checkout /> },
   { path: "/payment", element: <Payment /> },

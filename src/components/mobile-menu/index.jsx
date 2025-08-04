@@ -5,7 +5,7 @@ import { HiOutlineShoppingBag, HiShoppingBag } from "react-icons/hi2";
 import { FaRegUser, FaUser } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 
-function MobileNavbar() {
+function MobileMenu() {
   return (
     <div className="flex w-full bg-white text-gray-600 border-t border-t-gray-300">
       <NavLink to={"/"} className="py-1 flex flex-col flex-auto items-center ">
@@ -15,7 +15,7 @@ function MobileNavbar() {
         </div>
         <p className="text-base font-normal leading-7">خانه</p>
       </NavLink>
-      <NavLink className="py-1 flex flex-col flex-auto items-center ">
+      <NavLink to={"/MobileCategory"} className="py-1 flex flex-col flex-auto items-center ">
         <div>
           <BiCategory className="w-6 h-6" />
           <BiSolidCategory className="hidden w-6 h-6" />
@@ -40,4 +40,4 @@ function MobileNavbar() {
   );
 }
 
-export default MobileNavbar;
+export default MobileMenu;
